@@ -1,54 +1,29 @@
-# React + TypeScript + Vite
+# CheMister
+## Aplicativo de química com funcionalidades variadas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Funcionalidades
 
-Currently, two official plugins are available:
+- **Calculadora Molecular**: Permite calcular massas molares e fórmulas químicas.
+- **Tabela Periódica Interativa**: Exibe informações detalhadas sobre os elementos químicos.
+- **Balanceador de equações**: Ajuda a equilibrar equações químicas de forma automática.
+- **Simulador de PH**: Permite simular o nível de acidez ou alcalinidade de soluções químicas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Estrutura de pastas
+```markdown
+- **/src**: Código-fonte principal do aplicativo, incluindo lógica e componentes.
+  - **/components**: Componentes reutilizáveis da interface do usuário.
+  - **/pages**: Páginas principais do aplicativo.
+  - **/data**: Arquivos com dados químicos utilizados.
+  - **/assets**: Arquivos de mídia utilizados.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **/public**: Arquivos estáticos acessíveis diretamente.
+- **/assets**: Recursos estáticos como imagens e ícones.
 ```
+## Ferramentas Utilizadas
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- **React**: Biblioteca JavaScript para construção de interfaces de usuário.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estática ao código.
+- **Vite**: Ferramenta de build rápida e moderna para projetos web.
+- **Node.js**: Ambiente de execução JavaScript no lado do servidor.
+- **Git**: Sistema de controle de versão.
+- **GitHub**: Plataforma para hospedagem do código.
