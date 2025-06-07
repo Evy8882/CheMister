@@ -1,0 +1,116 @@
+.home-page, .periodic-table-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 80px;
+  min-height: 100vh;
+  gap: 1.4em;
+  background-color: #f0f0f0;
+}
+.main-header{
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  align-items: center;
+  width: 100%;
+  padding: 2em 1em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  top: 0;
+  height: 80px;
+}
+.main-header b{
+  margin: 0 2em;
+  font-size: 1.2em;
+}
+.header-links{
+  display: flex;
+  gap: 1em;
+}
+.get-started-btn{
+  padding: 18px;
+  background: linear-gradient(45deg, #10be6d, #0c9f56);
+  color: white;
+  border: none;
+  border-radius: 99px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.get-started-btn:hover {
+  background-color: #0056b3;
+}
+.menu-btn{
+  display: none;
+  background: linear-gradient(45deg, #10be6d, #0c9f56);
+  background-size: cover;
+  cursor: pointer;
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+}
+.close-btn{
+  display: none;
+  position: fixed;
+  background: #10be6d;
+  background-size: cover;
+  cursor: pointer;
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  bottom: 4px;
+  right: 4px;
+  z-index: 20;
+}
+@media screen and (max-width: 768px) {
+  .main-header b {
+    margin: 0;
+  }
+  .header-links {
+    /* display: none; */
+    height: 100vh;
+    position: fixed;
+    right: -100%;
+    top: 0;
+    background-color: #0c9f56;
+    z-index: 10;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    transition: right 0.3s ease;
+  }
+  .header-links.active{
+    display: flex;
+    right: 0;
+  }
+  .header-links.active .close-btn{
+    display: flex;
+  }
+  .header-links *:not(.close-btn){
+    margin: 1em 0;
+    color: white;
+    outline: 1px solid #fff6;
+    width: 100%;
+    height: min(50px, 18vh);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .menu-btn {
+    display: flex;
+  }
+  
+}
