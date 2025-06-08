@@ -1,5 +1,5 @@
 # CheMister
-## Aplicativo de química com funcionalidades variadas
+> Aplicativo de química com funcionalidades variadas
 
 ## Funcionalidades
 
@@ -10,14 +10,13 @@
 
 ## Estrutura de pastas
 ```markdown
-- **/src**: Código-fonte principal do aplicativo, incluindo lógica e componentes.
-  - **/components**: Componentes reutilizáveis da interface do usuário.
-  - **/pages**: Páginas principais do aplicativo.
-  - **/data**: Arquivos com dados químicos utilizados.
-  - **/assets**: Arquivos de mídia utilizados.
-
-- **/public**: Arquivos estáticos acessíveis diretamente.
-- **/assets**: Recursos estáticos como imagens e ícones.
+- /src  : Código-fonte principal do aplicativo, incluindo lógica e componentes.
+  - /components : Componentes reutilizáveis da interface do usuário.
+  - /pages  : Páginas principais do aplicativo.
+  - /data : Arquivos com dados químicos utilizados.
+  - /assets : Recursos estáticos como imagens e ícones.
+  - /styles: Arquivos de estilização.
+- /public : Arquivos estáticos acessíveis diretamente.
 ```
 ## Ferramentas Utilizadas
 

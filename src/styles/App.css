@@ -25,6 +25,8 @@
 .main-header b{
   margin: 0 2em;
   font-size: 1.2em;
+  color: #0c9f56;
+  font-weight: 800;
 }
 .header-links{
   display: flex;
@@ -38,10 +40,14 @@
   border-radius: 99px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 .get-started-btn:hover {
-  background-color: #0056b3;
+  transform: scale(1.05);
+}
+.main-title{
+  font-size: 2.5em;
+  font-weight: 800;
 }
 .menu-btn{
   display: none;
@@ -73,47 +79,6 @@
   right: 4px;
   z-index: 20;
 }
-@media screen and (max-width: 768px) {
-  .main-header b {
-    margin: 0;
-  }
-  .header-links {
-    /* display: none; */
-    height: 100vh;
-    position: fixed;
-    right: -100%;
-    top: 0;
-    background-color: #0c9f56;
-    z-index: 10;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0;
-    transition: right 0.3s ease;
-  }
-  .header-links.active{
-    display: flex;
-    right: 0;
-  }
-  .header-links.active .close-btn{
-    display: flex;
-  }
-  .header-links *:not(.close-btn){
-    margin: 1em 0;
-    color: white;
-    outline: 1px solid #fff6;
-    width: 100%;
-    height: min(50px, 18vh);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .menu-btn {
-    display: flex;
-  }
-  
-}
 .periodic-table{
   display: grid;
   grid-template-columns: repeat(18, 5.5%);
@@ -132,14 +97,76 @@
   aspect-ratio: 1;
   font-size: .6em;
   cursor: pointer;
-  transition: all 400ms ease, transform 0ms ease;
+  overflow: hidden;
+  transition: background-color 400ms ease-in-out, box-shadow 200ms ease-in-out, transform 0ms;
 }
 .element:hover{
   background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transform: scale(1.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transform: scale(1.1);
 }
 .symbol{
   font-size: 1.2em;
   font-weight: bold;
 }
+.mode-btn{
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #eee;
+  outline: 1px solid #333;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  margin: 10px;
+}
+.mode-btn:hover{
+  transform: scale(1.02);
+}
+.mode-btn.active{
+  background-color: #0c9f56;
+  color: white;
+  outline: 1px solid #0c9f56;
+}
+  @media screen and (max-width: 768px) {
+    .main-header b {
+      margin: 0;
+    }
+    .header-links {
+      /* display: none; */
+      height: 100vh;
+      position: fixed;
+      right: -100%;
+      top: 0;
+      background-color: #0c9f56;
+      z-index: 10;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0;
+      transition: right 0.3s ease;
+    }
+    .header-links.active{
+      display: flex;
+      right: 0;
+    }
+    .header-links.active .close-btn{
+      display: flex;
+    }
+    .header-links *:not(.close-btn){
+      margin: 1em 0;
+      color: white;
+      outline: 1px solid #fff6;
+      width: 100%;
+      height: min(50px, 18vh);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .menu-btn {
+      display: flex;
+    }
+    .periodic-table{
+      width: 100%;
+    }
+  }

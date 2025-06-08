@@ -1,4 +1,4 @@
-import './App.css'
+import './styles/App.css'
 import Home from './pages/Home'
 import PeriodicTable from './pages/PeriodicTable'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'

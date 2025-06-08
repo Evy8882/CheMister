@@ -4,8 +4,28 @@ import { useState } from "react";
 
 function PeriodicTable() {
   const [mode, setMode] = useState<string>("none");
-  const colors = ["#FF5733", "#33FF57", "#3357FF", "#9013FE", "#FF33A1", "#33FFF5", "#F5FF33", "#FF8333", "#8333FF", "#33FF83", "#FF3383", "#3383FF", "#F5A623", "#50E3C2", "#B8E986"];
-  
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#9013FE",
+    "#FF33A1",
+    "#33FFF5",
+    "#F5FF33",
+    "#FF8333",
+    "#8333FF",
+    "#33FF83",
+    "#FF3383",
+    "#3383FF",
+    "#F5A623",
+    "#50E3C2",
+    "#B8E986",
+    "#F8E71C",
+    "#D0021B",
+    "#F5A623",
+    "#4A90E2",
+  ];
+
   type Element = {
     atomicNumber: number;
     symbol: string;
@@ -13,21 +33,37 @@ function PeriodicTable() {
     atomicMass: number;
     group: number;
     period: number;
-  }
+    category: string | null,
+    state: string | null,
+    electronegativity: number | null
+  };
 
   const getColor = (element: Element): string => {
-    if (mode === "grups") {
+    if (mode === "groups") {
       if (element.atomicNumber === 1) {
         return "#BBBBBB"; // Cor para o hidrogênio
       }
       if (element.group > 2 && element.group < 13) {
-        return colors[3]
-      }else if (element.group >= 13 && element.group <= 18) {
-        return colors[element.group - 13];
+        return colors[3];
       }
       return colors[element.group]; // Cor para grupos
     } else if (mode === "periods") {
       return colors[element.period]; // Cor para períodos
+    } else if (mode === "state") {
+      if (element.state === "sólido") {
+        return colors[0];
+      } else if (element.state === "líquido") {
+        return colors[1];
+      } else if (element.state === "gasoso") {
+        return colors[2];
+      } else {
+        return "#CCCCCC"; // Cor padrão para outros estados
+      }
+    }else if (mode === "electronegativity") {
+      if (element.electronegativity === null) {
+        return "#CCCCCC"; // Cor padrão para elementos sem eletronegatividade
+      }
+      return "rgba(255, 0, 0, alpha )".replace("alpha", (element.electronegativity / 4).toString());
     }
     return "";
   };
@@ -36,23 +72,78 @@ function PeriodicTable() {
     <div className="periodic-table-page">
       <Header />
       <h1>Tabela Periódica</h1>
-      <p>Em construção...</p>
       <div className="periodic-table">
-
-      {data.map((element: Element) => (
-        <div key={element.atomicNumber} style={{ gridColumn: element.group, gridRow: element.period, backgroundColor: getColor(element) }} className="element">
-          <div className="atomic-number">{element.atomicNumber}</div>
-          <div className="symbol">{element.symbol}</div>
-          <div className="name">{element.name}</div>
-          <div className="atomic-mass">{element.atomicMass}</div>
+        {data.map((element: Element) => (
+          <div
+            key={element.atomicNumber}
+            style={{
+              gridColumn: (() => {
+                if (element.atomicNumber > 56 && element.atomicNumber < 72) {
+                  return element.group + element.atomicNumber - 56;
+                }
+                  if (element.atomicNumber > 88 && element.atomicNumber < 104) {
+                    return element.group + element.atomicNumber - 88;
+                  }
+                return element.group;
+              })(),
+              gridRow: (() => {
+                if (element.atomicNumber > 56 && element.atomicNumber < 72) {
+                  return 9;
+                }
+                  if (element.atomicNumber > 88 && element.atomicNumber < 104) {
+                    return 10;
+                  }
+                return element.period;
+              })(),
+              backgroundColor: getColor(element)
+            }}
+            className="element"
+          >
+            <div className="atomic-number">{element.atomicNumber}</div>
+            <div className="symbol">{element.symbol}</div>
+            <div className="name">{element.name}</div>
+            <div className="atomic-mass">{element.atomicMass}</div>
+          </div>
+        ))}
+        <div className="element" style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default" }}>
         </div>
-      ))}
       </div>
       <div className="modes-container">
-        <button onClick={()=>{setMode("grups")}}>Grupos</button>
-        <button onClick={()=>{setMode("periods")}}>Períodos</button>
+        <button
+          className={"mode-btn" + (mode === "groups" ? " active" : "")}
+          onClick={() => {
+            setMode("groups");
+          }}
+        >
+          Grupos
+        </button>
+        <button
+          className={"mode-btn" + (mode === "periods" ? " active" : "")}
+          onClick={() => {
+            setMode("periods");
+          }}
+        >
+          Períodos
+        </button>
+        <button
+          className={"mode-btn" + (mode === "state" ? " active" : "")}
+          onClick={() => {
+            setMode("state");
+          }}
+        >
+          Estado físico
+        </button>
+        <button
+          className={"mode-btn" + (mode === "electronegativity" ? " active" : "")}
+          onClick={() => {
+            setMode("electronegativity");
+          }}
+        >
+          Elétronegatividade
+        </button>
       </div>
     </div>
   );
 }
+
 export default PeriodicTable;
