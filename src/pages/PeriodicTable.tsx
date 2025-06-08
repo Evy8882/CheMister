@@ -3,7 +3,20 @@ import data from "../data/elements.json";
 import { useState } from "react";
 
 function PeriodicTable() {
+  type Element = {
+    atomicNumber: number;
+    symbol: string;
+    name: string;
+    atomicMass: number;
+    group: number;
+    period: number;
+    category: string | null,
+    state: string | null,
+    electronegativity: number | null
+  };
   const [mode, setMode] = useState<string>("none");
+  const [selected, setSelected] = useState<Element | null>(null);
+
   const colors = [
     "#FF5733",
     "#33FF57",
@@ -26,17 +39,6 @@ function PeriodicTable() {
     "#4A90E2",
   ];
 
-  type Element = {
-    atomicNumber: number;
-    symbol: string;
-    name: string;
-    atomicMass: number;
-    group: number;
-    period: number;
-    category: string | null,
-    state: string | null,
-    electronegativity: number | null
-  };
 
   const getColor = (element: Element): string => {
     if (mode === "groups") {
@@ -68,6 +70,30 @@ function PeriodicTable() {
     return "";
   };
 
+
+  function getSelected() {
+    if (selected) {
+      return (
+        <>
+        <div className="element" style={{ backgroundColor: getColor(selected), gridColumnStart: 4, gridColumnEnd: 6, gridRowStart: 1, gridRowEnd: 3, aspectRatio: "1/1", cursor: "default" }}>
+          <div className="atomic-number">{selected.atomicNumber}</div>
+            <div className="symbol">{selected.symbol}</div>
+            <div className="name">{selected.name}</div>
+            <div className="atomic-mass">{selected.atomicMass}</div>
+        </div>
+        <div className="element-details" style={{ gridColumnStart: 6, gridColumnEnd: 11, gridRowStart: 1, gridRowEnd: 3, fontSize: ".5em", overflow: "auto", padding: "4px" }}>
+          <p><strong>Grupo:</strong> {selected.group}</p>
+          <p><strong>Período:</strong> {selected.period}</p>
+          <p><strong>Categoria:</strong> {selected.category || "N/A"}</p>
+          <p><strong>Estado Físico:</strong> {selected.state || "N/A"}</p>
+          <p><strong>Eletronegatividade:</strong> {selected.electronegativity !== null ? selected.electronegativity : "N/A"}</p>
+        </div>
+        </>
+      );
+    }
+    return null;
+  }
+
   return (
     <div className="periodic-table-page">
       <Header />
@@ -98,6 +124,9 @@ function PeriodicTable() {
               backgroundColor: getColor(element)
             }}
             className="element"
+            onClick={()=>{
+              setSelected(element);
+            }}
           >
             <div className="atomic-number">{element.atomicNumber}</div>
             <div className="symbol">{element.symbol}</div>
@@ -107,6 +136,7 @@ function PeriodicTable() {
         ))}
         <div className="element" style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default" }}>
         </div>
+        {getSelected()}
       </div>
       <div className="modes-container">
         <button
