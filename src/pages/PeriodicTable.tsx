@@ -10,9 +10,9 @@ type Element = {
   atomicMass: number;
   group: number;
   period: number;
-  category: string | null,
-  state: string | null,
-  electronegativity: number | null
+  category: string | null;
+  state: string | null;
+  electronegativity: number | null;
 };
 
 const colors = [
@@ -55,14 +55,39 @@ const getColor = (element: Element, mode: string): string => {
       return colors[1];
     } else if (element.state === "gasoso") {
       return colors[2];
-    } else {
-      return "#CCCCCC"; // Cor padrão para outros estados
     }
+    return "#CCCCCC"; // Cor padrão para outros estados
   } else if (mode === "electronegativity") {
     if (element.electronegativity === null) {
       return "#CCCCCC"; // Cor padrão para elementos sem eletronegatividade
     }
-    return "rgba(255, 0, 0, alpha )".replace("alpha", (element.electronegativity / 4).toString());
+    return "rgba(255, 0, 0, alpha )".replace(
+      "alpha",
+      (element.electronegativity / 4).toString()
+    );
+  } else if (mode === "category") {
+    switch (element.category) {
+      case "não metal":
+        return colors[0];
+      case "metal alcalino":
+        return "#559a66";
+      case "metal alcalino-terroso":
+        return "#FF8a55";
+      case "semi-metal":
+        return "#FFD522";
+      case "metal de transição":
+        return "#FF8C00";
+      case "metal representativo":
+        return "#FF4500";
+      case "halogênio":
+        return colors[1];
+      case "gás nobre":
+        return colors[2];
+      case "lantanídeo":
+        return colors[3];
+      case "actinídeo":
+        return colors[4];
+    }
   }
   return "";
 };
@@ -84,24 +109,24 @@ function PeriodicTable() {
                 if (element.atomicNumber > 56 && element.atomicNumber < 72) {
                   return element.group + element.atomicNumber - 56;
                 }
-                  if (element.atomicNumber > 88 && element.atomicNumber < 104) {
-                    return element.group + element.atomicNumber - 88;
-                  }
+                if (element.atomicNumber > 88 && element.atomicNumber < 104) {
+                  return element.group + element.atomicNumber - 88;
+                }
                 return element.group;
               })(),
               gridRow: (() => {
                 if (element.atomicNumber > 56 && element.atomicNumber < 72) {
                   return 9;
                 }
-                  if (element.atomicNumber > 88 && element.atomicNumber < 104) {
-                    return 10;
-                  }
+                if (element.atomicNumber > 88 && element.atomicNumber < 104) {
+                  return 10;
+                }
                 return element.period;
               })(),
-              backgroundColor: getColor(element, mode)
+              backgroundColor: getColor(element, mode),
             }}
             className="element"
-            onClick={()=>{
+            onClick={() => {
               setSelected(element);
             }}
           >
@@ -111,9 +136,16 @@ function PeriodicTable() {
             <div className="atomic-mass">{element.atomicMass}</div>
           </div>
         ))}
-        <div className="element" style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default" }}>
-        </div>
-        {<GetSelected selected={selected} color={selected == null ? "" : getColor(selected, mode)} />}
+        <div
+          className="element"
+          style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default" }}
+        ></div>
+        {
+          <GetSelected
+            selected={selected}
+            color={selected == null ? "" : getColor(selected, mode)}
+          />
+        }
       </div>
       <div className="modes-container">
         <button
@@ -141,12 +173,22 @@ function PeriodicTable() {
           Estado físico
         </button>
         <button
-          className={"mode-btn" + (mode === "electronegativity" ? " active" : "")}
+          className={
+            "mode-btn" + (mode === "electronegativity" ? " active" : "")
+          }
           onClick={() => {
             setMode("electronegativity");
           }}
         >
-          Elétronegatividade
+          Eletronegatividade
+        </button>
+        <button
+          className={"mode-btn" + (mode === "category" ? " active" : "")}
+          onClick={() => {
+            setMode("category");
+          }}
+        >
+          Categoria
         </button>
       </div>
     </div>
