@@ -14,7 +14,7 @@ function Header(){
             <button className="close-btn" onClick={() => menuRef.current?.classList.remove("active")}>X</button>
             <Link to="/">Ínicio</Link>
             <Link to="/periodic-table">Tabela Períodica</Link>
-            <Link to="/">Calculadora de massa molar</Link>
+            <Link to="/molar-mass-calculator">Calculadora de massa molar</Link>
             <Link to="/">Balanceador de equações</Link>
             <Link to="/">Simulador de pH</Link>
             </div>
