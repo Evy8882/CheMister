@@ -129,6 +129,15 @@
   color: white;
   outline: 1px solid #0c9f56;
 }
+.not-found-elements{
+  text-align: center;
+  font-size: .8em;
+  color: #a00;
+}
+.not-found-elements p{
+  font-size: 1.2em;
+  color: #f00;
+}
   @media screen and (max-width: 768px) {
     .main-header b {
       margin: 0;

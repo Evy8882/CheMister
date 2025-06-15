@@ -14,10 +14,16 @@ type Element = {
   electronegativity: number | null;
 };
 
+type Results = {
+  molarMass: number;
+  mol: string;
+  notFoundElements: string[]
+}
+
 function MolarMassCalc() {
   const [mol, setMol] = useState<string>("");
 
-  function calc(mol: string, elements: Element[]): number {
+  function calc(mol: string, elements: Element[]): Results {
     let nmol: string[] = [];
     nmol = mol
       .split("")
@@ -39,18 +45,37 @@ function MolarMassCalc() {
       }
       return acc;
     }, []);
+    let multiplier: number = 1;
+    if (!isNaN(Number(nmol[0]))) {
+      multiplier = Number(nmol[0]);
+      nmol = nmol.slice(1);
+    }
     console.log(nmol);
     let masses: number[] = [];
-    elements.forEach((element: Element) => {
-      nmol.forEach((symbol) => {
-        if (element.symbol === symbol) {
-          masses.push(element.atomicMass);
-        }
-      });
+    let notFoundElements: string[] = [];
+    nmol.forEach((symbol) => {
+      if (!isNaN(Number(symbol))) {
+        masses[masses.length - 1] *= Number(symbol);
+        return;
+      }
+      const element = elements.find((el) => el.symbol === symbol);
+      if (element) {
+        masses.push(element.atomicMass);
+      } else {
+        notFoundElements.push(symbol);
+        masses.push(0);
+      }
     });
     console.log(masses);
-    return masses.reduce((acc, curr) => acc + curr, 0);
+    nmol = nmol.map(item => !isNaN(Number(item)) ? `<sub>${item}</sub>` : item);
+    return {
+      molarMass: masses.reduce((acc, curr) => acc + curr, 0) * multiplier,
+      mol: multiplier === 1 ? nmol.join("") : `${multiplier} ${nmol.join("")}`,
+      notFoundElements: notFoundElements
+    }
   }
+
+  const result = calc(mol, elements);
 
   return (
     <div className="molar-mass-calc-page">
@@ -64,9 +89,14 @@ function MolarMassCalc() {
           setMol(e.target.value);
         }}
       />
-      {mol}
-      <br />
-      {calc(mol, elements)}
+      <h2 dangerouslySetInnerHTML={{ __html: result.mol }}></h2>
+      <b>Massa Molar: {result.molarMass.toFixed(3)} g/mol</b>
+      {result.notFoundElements.length > 0 ? (
+        <div className="not-found-elements">
+          <b>Elementos Não encontrados:</b>
+          <p>{result.notFoundElements.join(" ")}</p>
+        </div>
+      ) : null}
     </div>
   );
 }
