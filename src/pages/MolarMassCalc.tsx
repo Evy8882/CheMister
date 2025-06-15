@@ -23,15 +23,9 @@ type Results = {
 function MolarMassCalc() {
   const [mol, setMol] = useState<string>("");
 
-  function calc(mol: string, elements: Element[]): Results {
-    let nmol: string[] = [];
-    nmol = mol
-      .split("")
-      .map((e: string) => (e === e.toUpperCase() ? ` ${e}` : e))
-      .join("")
-      .split(" ")
-      .filter((e: string) => e !== "");
-    nmol = nmol.reduce((acc: string[], val) => {
+
+  function concatNumbers(dividedMol: string[]): string[] {
+    return dividedMol.reduce((acc: string[], val) => {
       if (!isNaN(Number(val))) {
         if (acc.length > 0 && !isNaN(Number(acc[acc.length - 1]))) {
           acc[acc.length - 1] = String(
@@ -45,15 +39,12 @@ function MolarMassCalc() {
       }
       return acc;
     }, []);
-    let multiplier: number = 1;
-    if (!isNaN(Number(nmol[0]))) {
-      multiplier = Number(nmol[0]);
-      nmol = nmol.slice(1);
-    }
-    console.log(nmol);
+  }
+
+  function getMassesAndInvalidSymbols(dividedMol : string[], elements: Element[]): {masses: number[]; notFoundElements: string[]}{
     let masses: number[] = [];
     let notFoundElements: string[] = [];
-    nmol.forEach((symbol) => {
+    dividedMol.forEach((symbol) => {
       if (!isNaN(Number(symbol))) {
         masses[masses.length - 1] *= Number(symbol);
         return;
@@ -66,11 +57,34 @@ function MolarMassCalc() {
         masses.push(0);
       }
     });
-    console.log(masses);
-    nmol = nmol.map(item => !isNaN(Number(item)) ? `<sub>${item}</sub>` : item);
+    return {masses: masses, notFoundElements: notFoundElements};
+  }
+
+  function calc(mol: string, elements: Element[]): Results {
+    let dividedMol: string[] = mol
+      .split("")
+      .map((e: string) => (e === e.toUpperCase() ? ` ${e}` : e))
+      .join("")
+      .split(" ")
+      .filter((e: string) => e !== "");
+    
+    dividedMol = concatNumbers(dividedMol);
+
+    let multiplier: number = 1;
+    if (!isNaN(Number(dividedMol[0]))) {
+      multiplier = Number(dividedMol[0]);
+      dividedMol = dividedMol.slice(1);
+    }
+
+    let massesAndNotFound: {masses: number[]; notFoundElements: string[]} = getMassesAndInvalidSymbols(dividedMol, elements);
+    let masses: number[] = massesAndNotFound.masses;
+    let notFoundElements: string[] = massesAndNotFound.notFoundElements;
+    
+    // deixa multiplicadores indíviduais subscritos
+    dividedMol = dividedMol.map(item => !isNaN(Number(item)) ? `<sub>${item}</sub>` : item);
     return {
       molarMass: masses.reduce((acc, curr) => acc + curr, 0) * multiplier,
-      mol: multiplier === 1 ? nmol.join("") : `${multiplier} ${nmol.join("")}`,
+      mol: multiplier === 1 ? dividedMol.join("") : `${multiplier} ${dividedMol.join("")}`,
       notFoundElements: notFoundElements
     }
   }
