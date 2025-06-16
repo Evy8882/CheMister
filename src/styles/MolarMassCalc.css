@@ -1,0 +1,19 @@
+.not-found-elements {
+  text-align: center;
+  font-size: 0.8em;
+  color: #f00;
+}
+.not-found-elements p {
+  font-size: 1.4em;
+  font-weight: 800;
+}
+.mol-input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #111;
+  color: #fff;
+  font-size: 1em;
+  margin-bottom: 10px;
+}

@@ -1,6 +1,8 @@
 import Header from "../components/Header";
 import { useState } from "react";
 import elements from "../data/elements.json";
+import Footer from "../components/Footer";
+import "../styles/MolarMassCalc.css";
 
 type Element = {
   atomicNumber: number;
@@ -111,6 +113,7 @@ function MolarMassCalc() {
           <p>{result.notFoundElements.join(" ")}</p>
         </div>
       ) : null}
+      <Footer/>
     </div>
   );
 }

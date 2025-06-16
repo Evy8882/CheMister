@@ -2,6 +2,8 @@ import Header from "../components/Header";
 import data from "../data/elements.json";
 import { useState } from "react";
 import GetSelected from "../components/GetSelected";
+import Footer from "../components/Footer";
+import "../styles/PeriodicTable.css";
 
 type Element = {
   atomicNumber: number;
@@ -191,6 +193,7 @@ function PeriodicTable() {
           Categoria
         </button>
       </div>
+      <Footer />
     </div>
   );
 }
