@@ -140,7 +140,7 @@ function PeriodicTable() {
         ))}
         <div
           className="element"
-          style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default" }}
+          style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default", minHeight: "40px" }}
         ></div>
         {
           <GetSelected

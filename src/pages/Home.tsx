@@ -21,7 +21,7 @@ function Home() {
             <h3>Tabela Periódica</h3>
             <p>Explore a tabela periódica com informações detalhadas sobre cada elemento.</p>
           </a>
-          <a href="/" className="tool-card" style={{ gridColumn: "2" }}>
+          <a href="/molar-mass-calculator" className="tool-card" style={{ gridColumn: "2" }}>
             <h3>Calculadora de Massa Molar</h3>
             <p>Calcule a massa molar de compostos químicos facilmente.</p>
           </a>

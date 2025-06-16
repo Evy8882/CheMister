@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   padding-top: 80px;
-  min-height: 100vh;
+  min-height: 100dvh;
   gap: 1.4em;
   color: #fff;
   background-color: #222;
@@ -203,8 +203,5 @@
     }
     .menu-btn {
       display: flex;
-    }
-    .periodic-table{
-      width: 100%;
     }
   }

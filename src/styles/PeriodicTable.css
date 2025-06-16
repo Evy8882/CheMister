@@ -1,42 +1,68 @@
-.periodic-table{
-    display: grid;
-    grid-template-columns: repeat(18, 5.5%);
-    padding: 20px;
-    width: 80%;
-    margin: 0 auto;
-  }
-  .element{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.periodic-table {
+  display: grid;
+  grid-template-columns: repeat(18, 5.5%);
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
+}
+.element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #aaa;
+  color: #000;
+  outline: 1px solid #fff;
+  aspect-ratio: 1;
+  font-size: 0.6em;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 400ms ease-in-out, box-shadow 200ms ease-in-out,
+    transform 0ms;
+}
+.element:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transform: scale(1.1);
+}
+.symbol {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.mode-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #eee;
+  outline: 1px solid #333;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  margin: 10px;
+}
+@media screen and (max-width: 768px) {
+  .periodic-table {
     width: 100%;
-    height: 100%;
-    background-color: #aaa;
-    color: #000;
-    outline: 1px solid #fff;
-    aspect-ratio: 1;
-    font-size: .6em;
-    cursor: pointer;
-    overflow: hidden;
-    transition: background-color 400ms ease-in-out, box-shadow 200ms ease-in-out, transform 0ms;
   }
-  .element:hover{
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    transform: scale(1.1);
+  .element {
+    aspect-ratio: auto;
+    height: max-content;
+    font-size: 0.6em;
+    position: relative;
   }
-  .symbol{
-    font-size: 1.2em;
-    font-weight: bold;
+.atomic-mass {
+    display: none;
+    padding: 4px;
   }
-  .mode-btn{
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    background-color: #eee;
-    outline: 1px solid #333;
-    cursor: pointer;
-    transition: all 200ms ease-in-out;
-    margin: 10px;
+  .atomic-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.7em;
+    opacity: .8;
   }
+  .element .name{
+    font-size: 0.8em;
+  }
+}
