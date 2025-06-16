@@ -1,5 +1,11 @@
-# CheMister
+# CheMister (em desenvolvimento)
 > Aplicativo de química com funcionalidades variadas
+
+
+<img src="https://github.com/user-attachments/assets/9a02363c-46b2-4fdd-87cb-93e98b2b7fd2" height="300px"/>
+<br/>
+acesso: https://che-mister.vercel.app/
+
 
 ## Funcionalidades
 
