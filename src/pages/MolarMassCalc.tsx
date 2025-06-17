@@ -97,9 +97,12 @@ function MolarMassCalc() {
     <div className="molar-mass-calc-page">
       <Header />
       <h1>Calculadora de Massa Molar</h1>
+      <label htmlFor="mol-input">Insira a fórmula molecular:</label>
       <input
         type="text"
         className="mol-input"
+        id="mol-input"
+        placeholder="Ex: 2H2O, 3NaCl, C6H12O6, etc."
         value={mol}
         onChange={(e) => {
           setMol(e.target.value);
