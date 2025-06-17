@@ -19,8 +19,7 @@
   font-size: 0.6em;
   cursor: pointer;
   overflow: hidden;
-  transition: background-color 400ms ease-in-out, box-shadow 200ms ease-in-out,
-    transform 0ms;
+  transition: background-color 400ms ease-in-out, box-shadow 200ms ease-in-out, transform 0ms, color 500ms ease-in-out;
 }
 .element:hover {
   background-color: #f9f9f9;

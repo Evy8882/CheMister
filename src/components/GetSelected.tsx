@@ -13,13 +13,14 @@ type Element = {
 type GetSelectedProps = {
   selected: Element | null;
   color: string;
+  fntColor: string;
 };
 
-function GetSelected({ selected, color }: GetSelectedProps) {
+function GetSelected({ selected, color, fntColor }: GetSelectedProps) {
     if (selected) {
       return (
         <>
-        <div className="element" style={{ backgroundColor: color, gridColumnStart: 4, gridColumnEnd: 6, gridRowStart: 1, gridRowEnd: 3, aspectRatio: "1/1", cursor: "default" }}>
+        <div className="element" style={{ backgroundColor: color, color: fntColor, gridColumnStart: 4, gridColumnEnd: 6, gridRowStart: 1, gridRowEnd: 3, aspectRatio: "1/1", cursor: "default" }}>
           <div className="atomic-number">{selected.atomicNumber}</div>
             <div className="symbol">{selected.symbol}</div>
             <div className="name">{selected.name}</div>

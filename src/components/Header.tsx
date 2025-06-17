@@ -9,7 +9,7 @@ function Header(){
 
     return (
         <header className="main-header">
-            <img src={logo} alt="CheMister" className="header-logo" />
+            <a href="/"><img src={logo} alt="CheMister" className="header-logo" /></a>
             <button className="menu-btn" onClick={()=>{menuRef.current?.classList.add("active")}}><FontAwesomeIcon icon={faBars} /></button>
             <div className="header-links" ref={menuRef}>
             <button className="close-btn" onClick={() => menuRef.current?.classList.remove("active")}>X</button>

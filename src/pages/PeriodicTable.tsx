@@ -61,7 +61,7 @@ const getColor = (element: Element, mode: string): string => {
     return "#CCCCCC"; // Cor padrão para outros estados
   } else if (mode === "electronegativity") {
     if (element.electronegativity === null) {
-      return "#CCCCCC"; // Cor padrão para elementos sem eletronegatividade
+      return "#333"; // Cor padrão para elementos sem eletronegatividade
     }
     return "rgba(255, 0, 0, alpha )".replace(
       "alpha",
@@ -126,6 +126,7 @@ function PeriodicTable() {
                 return element.period;
               })(),
               backgroundColor: getColor(element, mode),
+              color: (mode === "electronegativity") ? "white" : "black",
             }}
             className="element"
             onClick={() => {
@@ -146,6 +147,7 @@ function PeriodicTable() {
           <GetSelected
             selected={selected}
             color={selected == null ? "" : getColor(selected, mode)}
+            fntColor = {(mode === "electronegativity") ? "white" : "black"}
           />
         }
       </div>
@@ -153,7 +155,11 @@ function PeriodicTable() {
         <button
           className={"mode-btn" + (mode === "groups" ? " active" : "")}
           onClick={() => {
-            setMode("groups");
+            if (mode !== "groups") {
+              setMode("groups");
+            } else {
+              setMode("none");
+            }
           }}
         >
           Grupos
@@ -161,7 +167,11 @@ function PeriodicTable() {
         <button
           className={"mode-btn" + (mode === "periods" ? " active" : "")}
           onClick={() => {
-            setMode("periods");
+            if (mode !== "periods") {
+              setMode("periods");
+            } else {
+              setMode("none");
+            }
           }}
         >
           Períodos
@@ -169,7 +179,11 @@ function PeriodicTable() {
         <button
           className={"mode-btn" + (mode === "state" ? " active" : "")}
           onClick={() => {
+          if (mode !== "state") {
             setMode("state");
+          } else {
+            setMode("none");
+          }
           }}
         >
           Estado físico
@@ -179,7 +193,11 @@ function PeriodicTable() {
             "mode-btn" + (mode === "electronegativity" ? " active" : "")
           }
           onClick={() => {
-            setMode("electronegativity");
+            if (mode !== "electronegativity") {
+              setMode("electronegativity");
+            } else {
+              setMode("none");
+            }
           }}
         >
           Eletronegatividade
@@ -187,7 +205,11 @@ function PeriodicTable() {
         <button
           className={"mode-btn" + (mode === "category" ? " active" : "")}
           onClick={() => {
-            setMode("category");
+            if (mode !== "category") {
+              setMode("category");
+            } else {
+              setMode("none");
+            }
           }}
         >
           Categoria
