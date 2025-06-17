@@ -1,6 +1,8 @@
 import Header from "../components/Header";
 import logo from "../assets/Logos/3.png";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
+import "../styles/Home.css"
 
 function Home() {
   return (
@@ -17,22 +19,22 @@ function Home() {
       <section id="tools-section" className="tools-section">
         <h2>Ferramentas disponíveis</h2>
         <div className="tools-container">
-          <a href="/periodic-table" className="tool-card" style={{ gridColumn: "1" }}>
+          <Link to="/periodic-table" className="tool-card" style={{ gridColumn: "1" }}>
             <h3>Tabela Periódica</h3>
             <p>Explore a tabela periódica com informações detalhadas sobre cada elemento.</p>
-          </a>
-          <a href="/molar-mass-calculator" className="tool-card" style={{ gridColumn: "2" }}>
+          </Link>
+          <Link to="/molar-mass-calculator" className="tool-card" style={{ gridColumn: "2" }}>
             <h3>Calculadora de Massa Molar</h3>
             <p>Calcule a massa molar de compostos químicos facilmente.</p>
-          </a>
-          <a href="/" className="tool-card" style={{ gridColumn: "1" }}>
+          </Link>
+          <Link to="/equation-balancer" className="tool-card" style={{ gridColumn: "1" }}>
             <h3>Balanceador de Equações</h3>
             <p>Balanceie equações químicas automaticamente.</p>
-          </a>
-          <a href="/" className="tool-card" style={{ gridColumn: "2" }}>
+          </Link>
+          <Link to="/ph-simulator" className="tool-card" style={{ gridColumn: "2" }}>
             <h3>Simulador de pH</h3>
             <p>Simule o pH de soluções químicas.</p>
-          </a>
+          </Link>
         </div>
       </section>
       <Footer />

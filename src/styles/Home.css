@@ -1,0 +1,76 @@
+.home-section{
+    display: flex;
+    justify-content: center;
+    width: min(80vw, 800px);
+    margin: 100px auto 0;
+  
+  }
+  .home-section img{
+    height: 200px;
+  }
+  .home-section .description{
+    color: #888;
+  }
+  .get-started-btn{
+    padding: 18px;
+    background: linear-gradient(45deg, #10be6d, #0c9f56);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+  }
+  .get-started-btn:hover {
+    transform: scale(1.05);
+  }
+  .tools-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: min(80vw, 800px);
+    margin: 0 auto;
+    padding: 40px;
+  }
+  .tools-container{
+    display: grid;
+    grid-template-columns: 2;
+    width: 100%;
+    gap: 20px;
+  }
+  .tool-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0;
+    justify-content: center;
+    width: 100%;
+    height: max(100%,100px);
+    padding: 2px 10px;
+    border-radius: 8px;
+    outline: 1px solid #ddd;
+    color: #fff;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: .8em;
+    text-decoration: none;
+  }
+  .tool-card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .main-title{
+    font-size: 2.5em;
+    font-weight: 800;
+  }
+  .mode-btn:hover{
+    transform: scale(1.02);
+  }
+  .mode-btn.active{
+    background-color: #0c9f56;
+    color: white;
+    outline: 1px solid #0c9f56;
+  }
+  
