@@ -28,11 +28,9 @@ function MolarMassCalc() {
 
   function concatNumbers(dividedMol: string[]): string[] {
     return dividedMol.reduce((acc: string[], val) => {
-      if (!isNaN(Number(val))) {
-        if (acc.length > 0 && !isNaN(Number(acc[acc.length - 1]))) {
-          acc[acc.length - 1] = String(
-            Number(acc[acc.length - 1]) * 10 + Number(val)
-          );
+      if (!isNaN(Number(val)) || val === ".") {
+        if (acc.length > 0 && (!isNaN(Number(acc[acc.length - 1])) || acc[acc.length - 1].includes("."))) {
+          acc[acc.length - 1] += val;
         } else {
           acc.push(val);
         }
@@ -63,6 +61,19 @@ function MolarMassCalc() {
   }
 
   function calc(mol: string, elements: Element[]): Results {
+    elements = elements.concat(
+      {
+        symbol: "Unit",
+        atomicNumber: 0,
+        atomicMass: 1,
+        name: "",
+        group: 0,
+        period: 0,
+        category: null,
+        state: null,
+        electronegativity: null
+      }
+    )
     let dividedMol: string[] = mol
       .split("")
       .map((e: string) => (e === e.toUpperCase() ? ` ${e}` : e))
@@ -83,7 +94,7 @@ function MolarMassCalc() {
     let notFoundElements: string[] = massesAndNotFound.notFoundElements;
     
     // deixa multiplicadores indíviduais subscritos
-    dividedMol = dividedMol.map(item => !isNaN(Number(item)) ? `<sub>${item}</sub>` : item);
+    // dividedMol = dividedMol.map(item => !isNaN(Number(item)) ? `<sub>${item}</sub>` : item);
     return {
       molarMass: masses.reduce((acc, curr) => acc + curr, 0) * multiplier,
       mol: multiplier === 1 ? dividedMol.join("") : `${multiplier} ${dividedMol.join("")}`,
@@ -96,8 +107,7 @@ function MolarMassCalc() {
   //necessário para cálculos com (),[],{}
 
   function removeBrackets(cMol: string, bStart: string, bEnd: string, elements: Element[])
-  : {sum: number; newMol: string, notFoundElements: string[]} {
-    let sum: number = 0;
+  : {newMol: string, notFoundElements: string[]} {
     let currentMol: string = cMol;
     let notFoundElements: string[] = [];
     while (currentMol.includes(bStart) && currentMol.includes(bEnd)) {
@@ -109,24 +119,26 @@ function MolarMassCalc() {
       const multiplierMatch = currentMol.slice(end + 1).match(/^\d+/);
       let multiplier = multiplierMatch ? Number(multiplierMatch[0]) : 1;
       
-      //se fechar outro bracket depois, seguido por um número
-      if (currentMol.slice(end + 2) == ")" || currentMol.slice(end + 2) == "]" || currentMol.slice(end + 2) == "}") {
-        const nextMultiplierMatch = currentMol.slice(end + 3).match(/^\d+/);
-        const nextMultiplier = nextMultiplierMatch ? Number(nextMultiplierMatch[0]) : 1;
-
-        multiplier *= nextMultiplier;
-      }
 
       //massa presente dentro do () multiplicado pelo número depois
       const currentResult = calc(innerMol, elements);
       const currentMass = currentResult.molarMass * multiplier;
       notFoundElements = notFoundElements.concat(currentResult.notFoundElements);
 
-      sum += currentMass;
+      if (currentMol.slice(end + 2) == ")" || currentMol.slice(end + 2) == "]" || currentMol.slice(end + 2) == "}") {
+        const nextMultiplierMatch = currentMol.slice(end + 3).match(/^\d+/);
+        const nextMultiplier = nextMultiplierMatch ? Number(nextMultiplierMatch[0]) : 1;
 
-      currentMol = currentMol.slice(0, start) + currentMol.slice(end + (multiplierMatch?.[0]?.length || 0) + 1);
+        multiplier *= nextMultiplier;
+      }
+      
+      if (multiplier > 1) {
+        currentMol = currentMol.slice(0, start) + `${bStart}Unit${currentMass}${bEnd}` + currentMol.slice(end + (multiplierMatch?.[0]?.length || 0) + 1);
+      } else {
+        currentMol = currentMol.slice(0, start) + `Unit${currentMass}` + currentMol.slice(end + (multiplierMatch?.[0]?.length || 0) + 1);
+      }
     }
-    return {sum: sum, newMol: currentMol, notFoundElements: notFoundElements};
+    return {newMol: currentMol, notFoundElements: notFoundElements};
   }
 
   function calcAll(mol: string, elements: Element[]): Results {
@@ -137,15 +149,12 @@ function MolarMassCalc() {
     
     // remove () e calcula a massa
     const result = removeBrackets(currentMol, "(", ")", elements);
-    sum += result.sum;
     currentMol = result.newMol;
     notFoundElements = notFoundElements.concat(result.notFoundElements);
     const result2 = removeBrackets(currentMol, "[", "]", elements);
-    sum += result2.sum;
     currentMol = result2.newMol;
     notFoundElements = notFoundElements.concat(result2.notFoundElements);
     const result3 = removeBrackets(currentMol, "{", "}", elements);
-    sum += result3.sum;
     currentMol = result3.newMol;
     notFoundElements = notFoundElements.concat(result3.notFoundElements);
 
@@ -173,7 +182,8 @@ function MolarMassCalc() {
           setMol(e.target.value);
         }}
       />
-      <h2 dangerouslySetInnerHTML={{ __html: result.mol }}></h2>
+      <h2>{result.mol.split("").map((char,index) =>
+        (!isNaN(Number(char)) || char === "." ?  ( index > result.mol.indexOf(" ") ? <sub>{char}</sub> : char) : char))}</h2>
       <b>Massa Molar: {result.molarMass.toFixed(3)} g/mol</b>
       {result.notFoundElements.length > 0 ? (
         <div className="not-found-elements">
