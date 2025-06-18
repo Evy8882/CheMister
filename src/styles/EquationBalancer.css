@@ -1,0 +1,17 @@
+.equation-inputs-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 1.5em;
+}
+.equation-inputs-container input {
+    width: 40%;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: .75em;
+    border: 1px solid #ccc;
+    background-color: #111;
+    color: #fff;
+    margin-bottom: 10px;
+}
