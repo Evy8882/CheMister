@@ -91,7 +91,72 @@ function MolarMassCalc() {
     }
   }
 
-  const result = calc(mol, elements);
+
+
+  //necessário para cálculos com (),[],{}
+
+  function removeBrackets(cMol: string, bStart: string, bEnd: string, elements: Element[])
+  : {sum: number; newMol: string, notFoundElements: string[]} {
+    let sum: number = 0;
+    let currentMol: string = cMol;
+    let notFoundElements: string[] = [];
+    while (currentMol.includes(bStart) && currentMol.includes(bEnd)) {
+      const start = currentMol.lastIndexOf(bStart);
+      const end = currentMol.indexOf(bEnd, start);
+      if (start === -1 || end === -1) break;
+
+      const innerMol = currentMol.slice(start + 1, end);
+      const multiplierMatch = currentMol.slice(end + 1).match(/^\d+/);
+      let multiplier = multiplierMatch ? Number(multiplierMatch[0]) : 1;
+      
+      //se fechar outro bracket depois, seguido por um número
+      if (currentMol.slice(end + 2) == ")" || currentMol.slice(end + 2) == "]" || currentMol.slice(end + 2) == "}") {
+        const nextMultiplierMatch = currentMol.slice(end + 3).match(/^\d+/);
+        const nextMultiplier = nextMultiplierMatch ? Number(nextMultiplierMatch[0]) : 1;
+
+        multiplier *= nextMultiplier;
+      }
+
+      //massa presente dentro do () multiplicado pelo número depois
+      const currentResult = calc(innerMol, elements);
+      const currentMass = currentResult.molarMass * multiplier;
+      notFoundElements = notFoundElements.concat(currentResult.notFoundElements);
+
+      sum += currentMass;
+
+      currentMol = currentMol.slice(0, start) + currentMol.slice(end + (multiplierMatch?.[0]?.length || 0) + 1);
+    }
+    return {sum: sum, newMol: currentMol, notFoundElements: notFoundElements};
+  }
+
+  function calcAll(mol: string, elements: Element[]): Results {
+    let currentMol: string = mol;
+    let sum: number = 0;
+    let notFoundElements: string[] = [];
+    const formula = calc(mol, elements).mol;
+    
+    // remove () e calcula a massa
+    const result = removeBrackets(currentMol, "(", ")", elements);
+    sum += result.sum;
+    currentMol = result.newMol;
+    notFoundElements = notFoundElements.concat(result.notFoundElements);
+    const result2 = removeBrackets(currentMol, "[", "]", elements);
+    sum += result2.sum;
+    currentMol = result2.newMol;
+    notFoundElements = notFoundElements.concat(result2.notFoundElements);
+    const result3 = removeBrackets(currentMol, "{", "}", elements);
+    sum += result3.sum;
+    currentMol = result3.newMol;
+    notFoundElements = notFoundElements.concat(result3.notFoundElements);
+
+    let finalResult = calc(currentMol, elements);
+    finalResult.molarMass += sum;
+    finalResult.mol = formula;
+    return finalResult;
+
+  }
+
+  const result = calcAll(mol, elements);
 
   return (
     <div className="molar-mass-calc-page">
