@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import { useState } from "react";
 import Footer from "../components/Footer";
 import "../styles/EquationBalancer.css";
-import { evaluate, parse, simplify, fraction, lcm, matrix, lusolve, fraction as frac } from "mathjs";
+import { fraction, lcm, matrix, lusolve } from "mathjs";
 
 function EquationBalancer() {
   const [reagents, setReagents] = useState<string>("");
@@ -75,7 +75,55 @@ function EquationBalancer() {
   }
 
   function resolveEquation(equations: string[], variables: string[]): number[] {
-    return [0];
+    // Cria uma matriz de coeficientes e um vetor de constantes
+    const coefficients: number[][] = [];
+    const constants: number[] = [];
+
+    equations.forEach((equation) => {
+      const [lhs] = equation.split("=");
+      const terms = lhs.split("+").map(term => term.trim());
+      const row: number[] = Array(variables.length).fill(0);
+
+      terms.forEach((term) => {
+        const match = term.match(/([+-]?\d*)([a-z])/i);
+        if (match) {
+          const coefficient = match[1] === "" || match[1] === "+" ? 1 : match[1] === "-" ? -1 : parseFloat(match[1]);
+          const variableIndex = variables.indexOf(match[2]);
+          if (variableIndex !== -1) {
+            row[variableIndex] = coefficient;
+          }
+        }
+      });
+
+      coefficients.push(row);
+      constants.push(0); // Todos os termos são iguais a zero
+    });
+
+    // Adiciona equações de normalização apenas se necessário para garantir que a matriz seja quadrada
+    while (coefficients.length < variables.length) {
+      const normalizationRow = Array(variables.length).fill(1);
+      coefficients.push(normalizationRow);
+      constants.push(1); // Normaliza os coeficientes
+    }
+
+    // Resolve o sistema de equações
+    const coeffMatrix = matrix(coefficients);
+    const constMatrix = matrix(constants);
+
+    try {
+      const solution = lusolve(coeffMatrix as math.Matrix, constMatrix as math.Matrix);
+      const rawCoefficients = (solution.toArray() as number[][]).map(row => row[0]); // Extrai os valores da solução
+
+      // Encontra o MMC dos denominadores para transformar os coeficientes em inteiros
+      const fractions = rawCoefficients.map((value) => fraction(value));
+      const denominators = fractions.map((frac) => frac.d);
+      const mmcValue = denominators.map((d) => Number(d)).reduce((acc, curr) => lcm(acc, curr));
+      const integerCoefficients = fractions.map((frac) => Number(frac.mul(fraction(mmcValue)).n));
+      return integerCoefficients;
+    } catch (error) {
+      console.error("Erro ao resolver o sistema de equações:", error);
+      return [];
+    }
   }
 
   function balanceEquation(reagents: string, products: string): string {
@@ -210,12 +258,25 @@ function EquationBalancer() {
         productsElementsByProduct
       );
 
+      const coefficients = resolveEquation(
+        equationSystem.equations,
+        equationSystem.variables
+      );
+      if (coefficients.length === 0) {
+        return "Não foi possível balancear a equação.";
+      }
+      console.log("Coeficientes:", coefficients);
+
+      const reagentsStr = reagentsList.map((reagent, index) => {
+        return `${coefficients[index] === 1 ? "" : coefficients[index]}${reagent}`;
+      });
+      const productsStr = productsList.map((product, index) => {
+        return `${coefficients[index + reagentsList.length] === 1 ? "" : coefficients[index + reagentsList.length]}${product}`;
+      });
       console.log("Equações do sistema:", equationSystem.equations);
       console.log("Variáveis do sistema:", equationSystem.variables);
 
-      return `Elementos Reagentes: ${reagentsElements.join(
-        ", "
-      )} | Elementos Produtos: ${productsElements.join(", ")}`;
+      return `${reagentsStr.join(" + ")} = ${productsStr.join(" + ")}`;
     }
     return "";
   }
