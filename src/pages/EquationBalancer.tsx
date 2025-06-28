@@ -286,7 +286,7 @@ function EquationBalancer() {
   return (
     <div className="molar-mass-calc-page">
       <Header />
-      <h1>Balanceador de equações (Em desenvolvimento)</h1>
+      <h1>Balanceador de equações</h1>
       <h2>Insira a equação:</h2>
       <div className="equation-inputs-container">
         <input
@@ -303,7 +303,7 @@ function EquationBalancer() {
           onChange={(e) => setProducts(e.target.value)}
         />
       </div>
-      <p>{result}</p>
+      <p style={{fontSize: "1.4em", fontWeight: "bold"}}>{result}</p>
       <Footer />
     </div>
   );
