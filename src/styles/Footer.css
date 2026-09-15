@@ -1,0 +1,287 @@
+/* Footer Styles for CheMister */
+.chemister-footer {
+  width: 100%;
+  background: linear-gradient(180deg, #18181c 0%, #101014 100%);
+  color: #e4e4e7;
+  position: relative;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin-top: auto;
+}
+
+.footer-gradient-divider {
+  height: 1px;
+  width: 100%;
+  opacity: 0.6;
+  background: linear-gradient(90deg, transparent 0%, #0c9f56 25%, #10be6d 50%, #00e676 75%, transparent 100%);
+  box-shadow: 0 0 12px rgba(16, 190, 109, 0.5);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1.2fr 1.5fr 1fr;
+  gap: 2.5rem;
+}
+
+/* Coluna 1: Branding & Etec */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-logo {
+  height: 48px;
+  width: auto;
+  filter: drop-shadow(0 0 8px rgba(16, 190, 109, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+  transform: scale(1.05) rotate(-3deg);
+}
+
+.brand-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #10be6d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.brand-description {
+  font-size: 0.9rem;
+  color: #a1a1aa;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.etec-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.etec-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #10be6d;
+}
+
+.etec-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.etec-sub {
+  font-size: 0.75rem;
+  color: #a1a1aa;
+}
+
+/* Section Titles */
+.footer-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title-icon {
+  color: #10be6d;
+  font-size: 1rem;
+}
+
+.team-subtitle {
+  font-size: 0.85rem;
+  color: #a1a1aa;
+  margin: 0 0 1rem 0;
+}
+
+/* Contributors Grid */
+.contributors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.contributor-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.contributor-card:hover {
+  background: rgba(16, 190, 109, 0.1);
+  border-color: rgba(16, 190, 109, 0.3);
+  transform: translateY(-2px);
+}
+
+.contributor-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #27272a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1.5px solid #10be6d;
+}
+
+.contributor-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  font-weight: 700;
+  color: #10be6d;
+  font-size: 0.9rem;
+}
+
+.contributor-details {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.contributor-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f4f4f5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contributor-role {
+  font-size: 0.72rem;
+  color: #a1a1aa;
+}
+
+.link-icon {
+  font-size: 0.7rem;
+  color: #71717a;
+  margin-left: auto;
+  transition: color 0.2s ease;
+}
+
+.contributor-card:hover .link-icon {
+  color: #10be6d;
+}
+
+/* Card Add Contributor */
+.add-contributor-card {
+  border: 1px dashed rgba(16, 190, 109, 0.4);
+  background: rgba(16, 190, 109, 0.03);
+}
+
+.add-contributor-card:hover {
+  background: rgba(16, 190, 109, 0.12);
+  border-color: #10be6d;
+}
+
+.add-avatar {
+  border-style: dashed;
+  background: rgba(16, 190, 109, 0.15);
+  color: #10be6d;
+}
+
+.add-contributor-card .contributor-name {
+  color: #10be6d;
+}
+
+/* Coluna 3: Links */
+.footer-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-nav-list a {
+  color: #a1a1aa;
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.footer-nav-list a:hover {
+  color: #10be6d;
+  transform: translateX(4px);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: #09090b;
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+}
+
+.footer-bottom-content p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #71717a;
+}
+
+.footer-bottom-content strong {
+  color: #e4e4e7;
+}
+
+.heart-icon {
+  color: #ef4444;
+  margin: 0 2px;
+}
+
+/* Responsividade */
+@media screen and (max-width: 960px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-links {
+    grid-column: span 2;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1.25rem 1.5rem;
+  }
+  .footer-links {
+    grid-column: span 1;
+  }
+  .contributors-grid {
+    grid-template-columns: 1fr;
+  }
+}
