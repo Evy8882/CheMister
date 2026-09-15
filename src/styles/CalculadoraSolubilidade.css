@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Calculadora de Solubilidade - CheMister Styles
+   ========================================================================== */
+
+.solubility-calc-page {
+  width: 100%;
+}
+
+.solubility-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.solubility-result-card {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 16px;
+  background: rgba(22, 27, 34, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.solubility-result-header {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.solubility-status-badge {
+  font-size: 1.35rem;
+  font-weight: 800;
+  padding: 10px 22px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.solubility-status-badge.insaturada {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.solubility-status-badge.saturada {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.solubility-status-badge.corpo-de-chao {
+  color: #fb923c;
+  background: rgba(251, 146, 60, 0.12);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.solubility-details {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.solubility-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(15, 18, 23, 0.4);
+}
+
+.solubility-detail-row strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.solubility-precipitate-alert {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+
+.solubility-precipitate-alert strong {
+  color: #f87171;
+}
+
+.solubility-helper-text {
+  margin-top: 20px;
+  color: #64748b;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .solubility-result-card {
+    padding: 18px 14px;
+  }
+  
+  .solubility-status-badge {
+    font-size: 1.15rem;
+    padding: 8px 16px;
+  }
+
+  .solubility-detail-row {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+}

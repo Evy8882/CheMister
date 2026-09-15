@@ -14,7 +14,8 @@ import {
   faArrowRight,
   faBolt,
   faGraduationCap,
-  faCircleInfo
+  faCircleInfo,
+  faDroplet
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Home.css";
 
@@ -55,6 +56,15 @@ const toolsData: ToolItem[] = [
     path: "/equation-balancer",
     icon: faScaleBalanced,
     description: "Balanceie reações químicas automaticamente com coeficientes estequiométricos corretos.",
+  },
+  {
+    id: "solubility-calculator",
+    title: "Calculadora de Solubilidade",
+    category: "calculo",
+    categoryLabel: "Cálculo",
+    path: "/solubility-calculator",
+    icon: faDroplet,
+    description: "Calcule a capacidade de dissolução de solutos em solventes e identifique precipitações de corpo de chão.",
   },
   {
     id: "ph-simulator",
@@ -119,7 +129,7 @@ function Home() {
               <FontAwesomeIcon icon={faFlask} />
             </div>
             <div className="stat-info">
-              <span className="stat-number">4</span>
+              <span className="stat-number">{toolsData.length}</span>
               <span className="stat-label">Ferramentas Práticas</span>
             </div>
           </div>
@@ -218,13 +228,14 @@ function Home() {
             <h2>Pronto para descomplicar seus estudos de química?</h2>
             <p>Explore a Tabela Periódica ou use nossas calculadoras científicas agora mesmo.</p>
           </div>
-          <Link to="/periodic-table" className="btn-primary banner-btn">
-            <FontAwesomeIcon icon={faTableCells} /> Explorar Tabela Periódica
-          </Link>
-          <Link to="/CalculadorSolubilidade" className="tool-card" style={{ gridColumn: "2" }}>
-            <h3>Calculadora de Solubilidade</h3>
-            <p>Calcule a solubilidade de compostos químicos facilmente.</p>
-          </Link>
+          <div className="cta-banner-actions">
+            <Link to="/periodic-table" className="btn-primary banner-btn">
+              <FontAwesomeIcon icon={faTableCells} /> Explorar Tabela Periódica
+            </Link>
+            <Link to="/solubility-calculator" className="btn-secondary banner-btn">
+              <FontAwesomeIcon icon={faDroplet} /> Calculadora de Solubilidade
+            </Link>
+          </div>
         </div>
       </section>
 

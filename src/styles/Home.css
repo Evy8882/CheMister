@@ -461,6 +461,13 @@
   color: #cbd5e1;
 }
 
+.cta-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
 .banner-btn {
   white-space: nowrap;
 }

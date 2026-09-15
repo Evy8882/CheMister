@@ -19,6 +19,7 @@ function Header(){
             <Link to="/molar-mass-calculator">Calculadora de massa molar</Link>
             <Link to="/equation-balancer">Balanceador de equações</Link>
             <Link to="/ph-simulator">Simulador de pH</Link>
+            <Link to="/solubility-calculator">Calculadora de solubilidade</Link>
             </div>
         </header>
     )

@@ -18,6 +18,8 @@ function App() {
         <Route path="/molar-mass-calculator" element={<MolarMassCalc/>} />
         <Route path="/equation-balancer" element={<EquationBalancer/>} />
         <Route path="/ph-simulator" element={<PhSimulator/>} />
+        <Route path="/solubility-calculator" element={<CalculadorSolubilidade/>} />
+        <Route path="/calculadora-solubilidade" element={<CalculadorSolubilidade/>} />
         <Route path="/CalculadorSolubilidade" element={<CalculadorSolubilidade/>} />
       </Routes>
     </Router>

@@ -117,6 +117,7 @@ function Footer() {
             <li><Link to="/molar-mass-calculator">Calculadora de Massa Molar</Link></li>
             <li><Link to="/equation-balancer">Balanceador de Equações</Link></li>
             <li><Link to="/ph-simulator">Simulador de pH</Link></li>
+            <li><Link to="/solubility-calculator">Calculadora de Solubilidade</Link></li>
           </ul>
         </div>
       </div>
