@@ -1,19 +1,71 @@
-.not-found-elements {
-  text-align: center;
-  font-size: 0.8em;
-  color: #f00;
+/* Molar Mass Calculator Custom Styles */
+
+.molar-mass-formula-display {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 }
-.not-found-elements p {
-  font-size: 1.4em;
+
+.molar-mass-formula-display sub {
+  font-size: 0.7em;
+  color: #34d399;
   font-weight: 800;
 }
-.mol-input {
-  width: 80%;
-  padding: 10px;
+
+.molar-mass-value-badge {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.molar-mass-value-badge .highlight-mass {
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #34d399 0%, #10be6d 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.molar-mass-unit {
+  font-size: 1rem;
+  color: #a1a1aa;
+  font-weight: 600;
+}
+
+.not-found-elements-card {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fca5a5;
+  font-size: 0.92rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.not-found-elements-card .alert-icon {
+  font-size: 1.3rem;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.not-found-symbols-list {
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(239, 68, 68, 0.2);
+  padding: 2px 8px;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #111;
-  color: #fff;
-  font-size: 1em;
-  margin-bottom: 10px;
+  margin-left: 4px;
 }
