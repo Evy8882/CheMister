@@ -35,6 +35,10 @@ function Home() {
             <h3>Simulador de pH</h3>
             <p>Simule o pH de soluções químicas.</p>
           </Link>
+          <Link to="/CalculadorSolubilidade" className="tool-card" style={{ gridColumn: "2" }}>
+            <h3>Calculadora de Solubilidade</h3>
+            <p>Calcule a solubilidade de compostos químicos facilmente.</p>
+          </Link>
         </div>
       </section>
       <Footer />
