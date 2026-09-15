@@ -40,6 +40,12 @@ const contributors: Contributor[] = [
     role: "Apoiadora",
     github: "https://github.com/Hihi1502",
     avatar: "https://github.com/Hihi1502.png"
+  },
+  {
+    name: "Eduardo Dani",
+    role: "Auxilio Criativo",
+    github: "https://github.com/edudanisilva08",
+    avatar: "https://github.com/edudanisilva08.png"
   }
 ];
 
