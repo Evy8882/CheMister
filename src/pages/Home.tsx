@@ -4,20 +4,16 @@ import logo from "../assets/Logos/3.png";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
-  faAtom,
   faTableCells,
   faCalculator,
   faScaleBalanced,
   faVial,
   faFlask,
-  faSearch,
-  faWandMagicSparkles,
   faArrowRight,
-  faCheckCircle,
   faBolt,
   faGraduationCap,
-  faLightbulb,
   faCircleInfo
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Home.css";
@@ -27,9 +23,8 @@ interface ToolItem {
   title: string;
   category: "tabela" | "calculo" | "simulacao";
   categoryLabel: string;
-  badge: string;
   path: string;
-  icon: typeof faAtom;
+  icon: IconDefinition;
   description: string;
 }
 
@@ -39,7 +34,6 @@ const toolsData: ToolItem[] = [
     title: "Tabela Periódica Interativa",
     category: "tabela",
     categoryLabel: "Consulta",
-    badge: "Popular",
     path: "/periodic-table",
     icon: faTableCells,
     description: "Navegue por todos os 118 elementos químicos com informações sobre massa atômica, estado físico e grupos.",
@@ -49,7 +43,6 @@ const toolsData: ToolItem[] = [
     title: "Calculadora de Massa Molar",
     category: "calculo",
     categoryLabel: "Cálculo",
-    badge: "Essencial",
     path: "/molar-mass-calculator",
     icon: faCalculator,
     description: "Insira qualquer fórmula química (ex: H₂SO₄, C₆H₁₂O₆) e descubra a massa molar precisa instantaneamente.",
@@ -59,7 +52,6 @@ const toolsData: ToolItem[] = [
     title: "Balanceador de Equações",
     category: "calculo",
     categoryLabel: "Cálculo",
-    badge: "Rápido",
     path: "/equation-balancer",
     icon: faScaleBalanced,
     description: "Balanceie reações químicas automaticamente com coeficientes estequiométricos corretos.",
@@ -69,27 +61,17 @@ const toolsData: ToolItem[] = [
     title: "Simulador de pH",
     category: "simulacao",
     categoryLabel: "Simulação",
-    badge: "Novo",
     path: "/ph-simulator",
     icon: faVial,
-    description: "Explore a acidez de soluções com base no valor da comcentração de íons H⁺ e visualize mudanças de pH em tempo real.",
+    description: "Explore a acidez de soluções com base no valor da concentração de íons H⁺ e visualize mudanças de pH em tempo real.",
   }
 ];
 
 function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const filteredTools = toolsData.filter((tool) => {
-    const matchesSearch =
-      tool.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tool.features.some((f) => f.toLowerCase().includes(searchTerm.toLowerCase()));
-
-    const matchesCategory =
-      selectedCategory === "all" || tool.category === selectedCategory;
-
-    return matchesSearch && matchesCategory;
+    return selectedCategory === "all" || tool.category === selectedCategory;
   });
 
   return (
@@ -101,12 +83,9 @@ function Home() {
         <div className="hero-background-effects">
           <div className="glow-orb orb-1"></div>
           <div className="glow-orb orb-2"></div>
-          <div className="floating-particles">
-          </div>
         </div>
 
         <div className="hero-container">
-
           <h1 className="hero-title">
             Reinventando o aprendizado de <span className="gradient-text">Química</span>
           </h1>
@@ -135,7 +114,6 @@ function Home() {
       {/* Stats Highlights Bar */}
       <section className="stats-bar-section">
         <div className="stats-container">
-
           <div className="stat-card">
             <div className="stat-icon-wrapper">
               <FontAwesomeIcon icon={faFlask} />
@@ -177,19 +155,8 @@ function Home() {
           </p>
         </div>
 
-        {/* Filter and Search Bar */}
+        {/* Category Filter Pills */}
         <div className="tools-filter-bar">
-          <div className="search-box">
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
-            <input
-              type="text"
-              placeholder="Buscar ferramenta por nome ou palavra-chave..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-          </div>
-
           <div className="category-pills">
             <button
               className={`pill-btn ${selectedCategory === "all" ? "active" : ""}`}
@@ -220,35 +187,27 @@ function Home() {
 
         {/* Tools Cards Grid */}
         <div className="tools-grid">
-          {filteredTools.length > 0 ? (
-            filteredTools.map((tool) => (
-              <Link to={tool.path} key={tool.id} className="tool-card">
-                <div className="tool-card-header">
-                  <div className="tool-icon-box">
-                    <FontAwesomeIcon icon={tool.icon} />
-                  </div>
+          {filteredTools.map((tool) => (
+            <Link to={tool.path} key={tool.id} className="tool-card">
+              <div className="tool-card-header">
+                <div className="tool-icon-box">
+                  <FontAwesomeIcon icon={tool.icon} />
                 </div>
+              </div>
 
-                <div className="tool-card-body">
-                  <span className="tool-category">{tool.categoryLabel}</span>
-                  <h3 className="tool-title">{tool.title}</h3>
-                  <p className="tool-desc">{tool.description}</p>
-                </div>
+              <div className="tool-card-body">
+                <span className="tool-category">{tool.categoryLabel}</span>
+                <h3 className="tool-title">{tool.title}</h3>
+                <p className="tool-desc">{tool.description}</p>
+              </div>
 
-                <div className="tool-card-footer">
-                  <span className="open-tool-text">
-                    Acessar Ferramenta <FontAwesomeIcon icon={faArrowRight} className="arrow-icon" />
-                  </span>
-                </div>
-              </Link>
-            ))
-          ) : (
-            <div className="no-results">
-              <FontAwesomeIcon icon={faSearch} className="no-results-icon" />
-              <h3>Nenhuma ferramenta encontrada</h3>
-              <p>Tente buscar por outro termo ou mude o filtro de categoria.</p>
-            </div>
-          )}
+              <div className="tool-card-footer">
+                <span className="open-tool-text">
+                  Acessar Ferramenta <FontAwesomeIcon icon={faArrowRight} className="arrow-icon" />
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -271,3 +230,4 @@ function Home() {
 }
 
 export default Home;
+
