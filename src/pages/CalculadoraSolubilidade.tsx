@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import "../styles/MolarMassCalc.css";
 
 type Results = {
   maxSoluble: number;
@@ -46,160 +47,116 @@ function SolubilityCalc() {
   const result = calcSolubility();
 
   return (
-    <div style={styles.page}>
+    <div className="molar-mass-calc-page">
       <Header />
-      <main style={styles.container}>
-        <h1 style={styles.title}>Calculadora de Solubilidade</h1>
+      
+      <h1>Calculadora de Solubilidade</h1>
 
-        <div style={styles.inputGroup}>
-          <label htmlFor="solute-input" style={styles.label}>
-            Massa do Soluto (g):
-          </label>
-          <input
-            type="number"
-            style={styles.input}
-            id="solute-input"
-            placeholder="Ex: 50"
-            value={solute}
-            onChange={(e) => setSolute(e.target.value)}
-          />
-        </div>
+      <label htmlFor="solute-input">Massa do Soluto (g):</label>
+      <input
+        type="number"
+        className="mol-input"
+        id="solute-input"
+        placeholder="Ex: 50"
+        value={solute}
+        onChange={(e) => setSolute(e.target.value)}
+      />
 
-        <div style={styles.inputGroup}>
-          <label htmlFor="coeff-input" style={styles.label}>
-            Coeficiente de Solubilidade (g / 100g de H₂O):
-          </label>
-          <input
-            type="number"
-            style={styles.input}
-            id="coeff-input"
-            placeholder="Ex: 36 (NaCl a 20°C)"
-            value={coefficient}
-            onChange={(e) => setCoefficient(e.target.value)}
-          />
-        </div>
+      <label htmlFor="coeff-input">
+        Coeficiente de Solubilidade (g / 100g de H₂O):
+      </label>
+      <input
+        type="number"
+        className="mol-input"
+        id="coeff-input"
+        placeholder="Ex: 36 (NaCl a 20°C)"
+        value={coefficient}
+        onChange={(e) => setCoefficient(e.target.value)}
+      />
 
-        <div style={styles.inputGroup}>
-          <label htmlFor="water-input" style={styles.label}>
-            Massa do Solvente / Água (g):
-          </label>
-          <input
-            type="number"
-            style={styles.input}
-            id="water-input"
-            placeholder="Ex: 100"
-            value={water}
-            onChange={(e) => setWater(e.target.value)}
-          />
-        </div>
+      <label htmlFor="water-input">Massa do Solvente / Água (g):</label>
+      <input
+        type="number"
+        className="mol-input"
+        id="water-input"
+        placeholder="Ex: 100"
+        value={water}
+        onChange={(e) => setWater(e.target.value)}
+      />
 
-        {result ? (
-          <div style={styles.resultsContainer}>
-            <h2 style={styles.resultTitle}>
-              Estado da Solução: <span style={styles.highlight}>{result.status}</span>
-            </h2>
-            <b style={styles.resultDetail}>
-              Limite máximo de dissolução: {result.maxSoluble.toFixed(2)} g
-            </b>
-            {result.precipitate > 0 && (
-              <p style={styles.precipitateInfo}>
-                <b>Corpo de chão (Precipitado):</b> {result.precipitate.toFixed(2)} g
-              </p>
-            )}
+      {result ? (
+        <div
+          style={{
+            marginTop: "25px",
+            padding: "20px",
+            borderRadius: "10px",
+            backgroundColor: "#161b22",
+            border: "1px solid #30363d",
+            width: "100%",
+            maxWidth: "400px",
+            textAlign: "center",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+            boxSizing: "border-box",
+          }}
+        >
+          <h2
+            style={{
+              fontSize: "1.1rem",
+              color: "#8b949e",
+              marginBottom: "8px",
+              fontWeight: "normal",
+            }}
+          >
+            Estado da Solução
+          </h2>
+
+          <div
+            style={{
+              fontSize: "1.3rem",
+              fontWeight: "bold",
+              color: "#38bdf8",
+              marginBottom: "15px",
+            }}
+          >
+            {result.status}
           </div>
-        ) : (
-          <p style={styles.placeholderText}>
-            Preencha todos os campos com valores válidos para calcular.
-          </p>
-        )}
-      </main>
+
+          <div
+            style={{
+              borderTop: "1px solid #21262d",
+              paddingTop: "12px",
+              fontSize: "0.95rem",
+              color: "#c9d1d9",
+            }}
+          >
+            <span>Limite máximo de dissolução: </span>
+            <strong style={{ color: "#ffffff" }}>
+              {result.maxSoluble.toFixed(2)} g
+            </strong>
+          </div>
+
+          {result.precipitate > 0 && (
+            <div
+              style={{
+                marginTop: "8px",
+                fontSize: "0.95rem",
+                color: "#f87171",
+              }}
+            >
+              <span>Corpo de chão (Precipitado): </span>
+              <strong>{result.precipitate.toFixed(2)} g</strong>
+            </div>
+          )}
+        </div>
+      ) : (
+        <p style={{ marginTop: "20px", color: "#8b949e", fontSize: "0.9rem" }}>
+          Preencha todos os campos com valores válidos para calcular.
+        </p>
+      )}
+
       <Footer />
     </div>
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  page: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    backgroundColor: "#0d0d0d",
-    color: "#ffffff",
-    fontFamily: "sans-serif",
-  },
-  container: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-    maxWidth: "600px",
-    margin: "0 auto",
-    width: "100%",
-  },
-  title: {
-    fontSize: "2rem",
-    marginBottom: "20px",
-    color: "#ffffff",
-    textAlign: "center",
-  },
-  inputGroup: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    marginBottom: "15px",
-  },
-  label: {
-    marginBottom: "5px",
-    fontWeight: "bold",
-    color: "#e2e8f0",
-  },
-  input: {
-    padding: "10px 14px",
-    fontSize: "1rem",
-    borderRadius: "6px",
-    border: "1px solid #333333",
-    backgroundColor: "#1a1a1a",
-    color: "#ffffff",
-    outline: "none",
-    width: "100%",
-    boxSizing: "border-box",
-  },
-  resultsContainer: {
-    marginTop: "20px",
-    padding: "15px 20px",
-    borderRadius: "8px",
-    backgroundColor: "#161b22",
-    border: "1px solid #30363d",
-    width: "100%",
-    textAlign: "center",
-    boxSizing: "border-box",
-  },
-  resultTitle: {
-    fontSize: "1.25rem",
-    color: "#f0f6fc",
-    marginBottom: "10px",
-  },
-  highlight: {
-    color: "#38bdf8",
-    fontWeight: "bold",
-  },
-  resultDetail: {
-    display: "block",
-    color: "#c9d1d9",
-    marginTop: "5px",
-  },
-  precipitateInfo: {
-    color: "#f87171",
-    marginTop: "10px",
-  },
-  placeholderText: {
-    marginTop: "20px",
-    color: "#8b949e",
-    fontSize: "0.95rem",
-    textAlign: "center",
-  },
-};
 
 export default SolubilityCalc;
