@@ -3,6 +3,7 @@ import data from "../data/elements.json";
 import { useState } from "react";
 import GetSelected from "../components/GetSelected";
 import Footer from "../components/Footer";
+import "../styles/App.css";
 import "../styles/PeriodicTable.css";
 
 type Element = {
@@ -42,14 +43,14 @@ const colors = [
 const getColor = (element: Element, mode: string): string => {
   if (mode === "groups") {
     if (element.atomicNumber === 1) {
-      return "#BBBBBB"; // Cor para o hidrogênio
+      return "#BBBBBB";
     }
     if (element.group > 2 && element.group < 13) {
       return colors[3];
     }
-    return colors[element.group]; // Cor para grupos
+    return colors[element.group];
   } else if (mode === "periods") {
-    return colors[element.period]; // Cor para períodos
+    return colors[element.period];
   } else if (mode === "state") {
     if (element.state === "sólido") {
       return colors[0];
@@ -58,10 +59,10 @@ const getColor = (element: Element, mode: string): string => {
     } else if (element.state === "gasoso") {
       return colors[2];
     }
-    return "#CCCCCC"; // Cor padrão para outros estados
+    return "#CCCCCC";
   } else if (mode === "electronegativity") {
     if (element.electronegativity === null) {
-      return "#333"; // Cor padrão para elementos sem eletronegatividade
+      return "#333";
     }
     return "rgba(255, 0, 0, alpha )".replace(
       "alpha",
@@ -99,122 +100,107 @@ function PeriodicTable() {
   const [selected, setSelected] = useState<Element | null>(null);
 
   return (
-    <div className="periodic-table-page">
+    <div className="tool-page-layout">
+      <div className="tool-bg-effects">
+        <div className="glow-orb orb-1"></div>
+        <div className="glow-orb orb-2"></div>
+      </div>
+
       <Header />
-      <h1>Tabela Periódica</h1>
-      <div className="periodic-table">
-        {data.map((element: Element) => (
-          <div
-            key={element.atomicNumber}
-            style={{
-              gridColumn: (() => {
-                if (element.atomicNumber > 56 && element.atomicNumber < 72) {
-                  return element.group + element.atomicNumber - 56;
-                }
-                if (element.atomicNumber > 88 && element.atomicNumber < 104) {
-                  return element.group + element.atomicNumber - 88;
-                }
-                return element.group;
-              })(),
-              gridRow: (() => {
-                if (element.atomicNumber > 56 && element.atomicNumber < 72) {
-                  return 9;
-                }
-                if (element.atomicNumber > 88 && element.atomicNumber < 104) {
-                  return 10;
-                }
-                return element.period;
-              })(),
-              backgroundColor: getColor(element, mode),
-              color: (mode === "electronegativity") ? "white" : "black",
-            }}
-            className="element"
-            onClick={() => {
-              setSelected(element);
-            }}
-          >
-            <div className="atomic-number">{element.atomicNumber}</div>
-            <div className="symbol">{element.symbol}</div>
-            <div className="name">{element.name}</div>
-            <div className="atomic-mass">{element.atomicMass}</div>
+
+      <main className="tool-main-content">
+        <div className="tool-header-block">
+          <h1 className="tool-page-title">Tabela Periódica</h1>
+          <p className="tool-page-subtitle">
+            Navegue por todos os 118 elementos químicos e filtre visualmente por grupos, períodos, estado físico, eletronegatividade ou categoria.
+          </p>
+        </div>
+
+        <div className="periodic-table-wrapper">
+          <div className="modes-container">
+            <button
+              className={"mode-btn" + (mode === "groups" ? " active" : "")}
+              onClick={() => setMode(mode !== "groups" ? "groups" : "none")}
+            >
+              Grupos
+            </button>
+            <button
+              className={"mode-btn" + (mode === "periods" ? " active" : "")}
+              onClick={() => setMode(mode !== "periods" ? "periods" : "none")}
+            >
+              Períodos
+            </button>
+            <button
+              className={"mode-btn" + (mode === "state" ? " active" : "")}
+              onClick={() => setMode(mode !== "state" ? "state" : "none")}
+            >
+              Estado Físico
+            </button>
+            <button
+              className={"mode-btn" + (mode === "electronegativity" ? " active" : "")}
+              onClick={() => setMode(mode !== "electronegativity" ? "electronegativity" : "none")}
+            >
+              Eletronegatividade
+            </button>
+            <button
+              className={"mode-btn" + (mode === "category" ? " active" : "")}
+              onClick={() => setMode(mode !== "category" ? "category" : "none")}
+            >
+              Categoria
+            </button>
           </div>
-        ))}
-        <div
-          className="element"
-          style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default", minHeight: "40px" }}
-        ></div>
-        {
-          <GetSelected
-            selected={selected}
-            color={selected == null ? "" : getColor(selected, mode)}
-            fntColor = {(mode === "electronegativity") ? "white" : "black"}
-          />
-        }
-      </div>
-      <div className="modes-container">
-        <button
-          className={"mode-btn" + (mode === "groups" ? " active" : "")}
-          onClick={() => {
-            if (mode !== "groups") {
-              setMode("groups");
-            } else {
-              setMode("none");
-            }
-          }}
-        >
-          Grupos
-        </button>
-        <button
-          className={"mode-btn" + (mode === "periods" ? " active" : "")}
-          onClick={() => {
-            if (mode !== "periods") {
-              setMode("periods");
-            } else {
-              setMode("none");
-            }
-          }}
-        >
-          Períodos
-        </button>
-        <button
-          className={"mode-btn" + (mode === "state" ? " active" : "")}
-          onClick={() => {
-          if (mode !== "state") {
-            setMode("state");
-          } else {
-            setMode("none");
-          }
-          }}
-        >
-          Estado físico
-        </button>
-        <button
-          className={
-            "mode-btn" + (mode === "electronegativity" ? " active" : "")
-          }
-          onClick={() => {
-            if (mode !== "electronegativity") {
-              setMode("electronegativity");
-            } else {
-              setMode("none");
-            }
-          }}
-        >
-          Eletronegatividade
-        </button>
-        <button
-          className={"mode-btn" + (mode === "category" ? " active" : "")}
-          onClick={() => {
-            if (mode !== "category") {
-              setMode("category");
-            } else {
-              setMode("none");
-            }
-          }}
-        >
-          Categoria
-        </button>
-      </div>
+
+          <div className="periodic-table">
+            {data.map((element: Element) => {
+              const bg = getColor(element, mode);
+              return (
+                <div
+                  key={element.atomicNumber}
+                  style={{
+                    gridColumn: (() => {
+                      if (element.atomicNumber > 56 && element.atomicNumber < 72) {
+                        return element.group + element.atomicNumber - 56;
+                      }
+                      if (element.atomicNumber > 88 && element.atomicNumber < 104) {
+                        return element.group + element.atomicNumber - 88;
+                      }
+                      return element.group;
+                    })(),
+                    gridRow: (() => {
+                      if (element.atomicNumber > 56 && element.atomicNumber < 72) {
+                        return 9;
+                      }
+                      if (element.atomicNumber > 88 && element.atomicNumber < 104) {
+                        return 10;
+                      }
+                      return element.period;
+                    })(),
+                    backgroundColor: bg || "#27272a",
+                    color: mode === "electronegativity" || (bg && mode !== "none") ? "white" : "#e4e4e7",
+                  }}
+                  className="element"
+                  onClick={() => setSelected(element)}
+                >
+                  <div className="atomic-number">{element.atomicNumber}</div>
+                  <div className="symbol">{element.symbol}</div>
+                  <div className="name">{element.name}</div>
+                  <div className="atomic-mass">{element.atomicMass}</div>
+                </div>
+              );
+            })}
+            <div
+              className="element"
+              style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default", minHeight: "30px" }}
+            ></div>
+            <GetSelected
+              selected={selected}
+              color={selected == null ? "" : getColor(selected, mode)}
+              fntColor={mode === "electronegativity" || mode !== "none" ? "white" : "#e4e4e7"}
+            />
+          </div>
+        </div>
+      </main>
+
       <Footer />
     </div>
   );

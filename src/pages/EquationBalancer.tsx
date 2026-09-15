@@ -1,27 +1,37 @@
 import Header from "../components/Header";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faScaleBalanced, faFlask, faArrowRight, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import "../styles/App.css";
 import "../styles/EquationBalancer.css";
 import { fraction, lcm, matrix, lusolve } from "mathjs";
+
+const PRESET_REACTIONS = [
+  { label: "Síntese da Água", reagents: "H2 + O2", products: "H2O" },
+  { label: "Combustão do Metano", reagents: "CH4 + O2", products: "CO2 + H2O" },
+  { label: "Oxidação do Ferro", reagents: "Fe + O2", products: "Fe2O3" },
+  { label: "Neutralização Ácido-Base", reagents: "HCl + NaOH", products: "NaCl + H2O" },
+  { label: "Oxidação do Alumínio", reagents: "Al + O2", products: "Al2O3" },
+];
 
 function EquationBalancer() {
   const [reagents, setReagents] = useState<string>("");
   const [products, setProducts] = useState<string>("");
 
-  function createEquationSystem (
+  function createEquationSystem(
     reagentsList: string[],
     productsList: string[],
     reagentsElementsByReagent: string[][],
     productsElementsByProduct: string[][]
-  ): {equations: string[]; variables: string[]} {
+  ): { equations: string[]; variables: string[] } {
     const allCompounds = [...reagentsList, ...productsList];
 
-    //cria uma letra para cada váriavel
     const variables = allCompounds.map((_, index) => {
       return String.fromCharCode(97 + index);
-    })
+    });
 
-    const elementsMap: {[element: string]: number[]} = {};
+    const elementsMap: { [element: string]: number[] } = {};
 
     reagentsElementsByReagent.forEach((compound, index) => {
       compound.forEach((elementStr) => {
@@ -39,7 +49,7 @@ function EquationBalancer() {
     });
 
     productsElementsByProduct.forEach((compound, index) => {
-      const i = index + reagentsList.length; // Ajusta o índice somando o tamanho dos reagentes
+      const i = index + reagentsList.length;
       compound.forEach((elementStr) => {
         const match = elementStr.match(/(\D+)(\d*)/);
         if (match) {
@@ -60,12 +70,13 @@ function EquationBalancer() {
       const terms: string[] = [];
 
       elementsMap[element].forEach((coefficient, i) => {
-        const term = coefficient === 1
-        ? `${variables[i]}`
-        : coefficient === -1
-        ? `-${variables[i]}`
-        : `${coefficient}${variables[i]}`;
-      terms.push(term);
+        const term =
+          coefficient === 1
+            ? `${variables[i]}`
+            : coefficient === -1
+            ? `-${variables[i]}`
+            : `${coefficient}${variables[i]}`;
+        terms.push(term);
       });
 
       equations.push(`${terms.join(" + ")} = 0`);
@@ -75,13 +86,12 @@ function EquationBalancer() {
   }
 
   function resolveEquation(equations: string[], variables: string[]): number[] {
-    // Cria uma matriz de coeficientes e um vetor de constantes
     const coefficients: number[][] = [];
     const constants: number[] = [];
 
     equations.forEach((equation) => {
       const [lhs] = equation.split("=");
-      const terms = lhs.split("+").map(term => term.trim());
+      const terms = lhs.split("+").map((term) => term.trim());
       const row: number[] = Array(variables.length).fill(0);
 
       terms.forEach((term) => {
@@ -96,25 +106,22 @@ function EquationBalancer() {
       });
 
       coefficients.push(row);
-      constants.push(0); // Todos os termos são iguais a zero
+      constants.push(0);
     });
 
-    // Adiciona equações de normalização apenas se necessário para garantir que a matriz seja quadrada
     while (coefficients.length < variables.length) {
       const normalizationRow = Array(variables.length).fill(1);
       coefficients.push(normalizationRow);
-      constants.push(1); // Normaliza os coeficientes
+      constants.push(1);
     }
 
-    // Resolve o sistema de equações
     const coeffMatrix = matrix(coefficients);
     const constMatrix = matrix(constants);
 
     try {
       const solution = lusolve(coeffMatrix as math.Matrix, constMatrix as math.Matrix);
-      const rawCoefficients = (solution.toArray() as number[][]).map(row => row[0]); // Extrai os valores da solução
+      const rawCoefficients = (solution.toArray() as number[][]).map((row) => row[0]);
 
-      // Encontra o MMC dos denominadores para transformar os coeficientes em inteiros
       const fractions = rawCoefficients.map((value) => fraction(value));
       const denominators = fractions.map((frac) => frac.d);
       const mmcValue = denominators.map((d) => Number(d)).reduce((acc, curr) => lcm(acc, curr));
@@ -127,12 +134,12 @@ function EquationBalancer() {
   }
 
   function balanceEquation(reagents: string, products: string): string {
-    // return `${reagents ? reagents : "Reagentes"} | ${products? products : "Produtos"}`;
     if (reagents && products) {
-      let reagentsList = reagents.split("+").map((r) => r.trim());
-      let productsList = products.split("+").map((p) => p.trim());
+      let reagentsList = reagents.split("+").map((r) => r.trim()).filter(r => r !== "");
+      let productsList = products.split("+").map((p) => p.trim()).filter(p => p !== "");
 
-      // Remove multiplicadores do início de cada mol para cada item de reagentsList e productsList
+      if (reagentsList.length === 0 || productsList.length === 0) return "";
+
       reagentsList = reagentsList.map((reagent) => {
         while (!isNaN(Number(reagent.split("")[0]))) {
           reagent = reagent.slice(1);
@@ -147,109 +154,37 @@ function EquationBalancer() {
         return product;
       });
 
-      // return `Reagentes: ${reagentsList.join(", ")} | Produtos: ${productsList.join(", ")}`;
-      // Separa cada elemento presente na equação
-      const reagentsElements = reagentsList.map((reagent) =>
+      const reagentsElementsByReagent: string[][] = reagentsList.map((reagent) =>
         reagent
           .split("")
-          .map((char) =>
-            char === char.toUpperCase() && isNaN(Number(char))
-              ? ` ${char}`
-              : char
-          )
+          .reduce((acc: string[], char: string) => {
+            if (char === char.toUpperCase() && isNaN(Number(char))) {
+              acc.push(` ${char}`);
+            } else {
+              acc.push(char);
+            }
+            return acc;
+          }, [])
           .join("")
           .split(" ")
-          .filter((item) => item !== "")
+          .filter((item: string) => item !== "")
       );
-      const productsElements = productsList.map((product) =>
+
+      const productsElementsByProduct: string[][] = productsList.map((product) =>
         product
           .split("")
-          .map((char) =>
-            char === char.toUpperCase() && isNaN(Number(char))
-              ? ` ${char}`
-              : char
-          )
+          .reduce((acc: string[], char: string) => {
+            if (char === char.toUpperCase() && isNaN(Number(char))) {
+              acc.push(` ${char}`);
+            } else {
+              acc.push(char);
+            }
+            return acc;
+          }, [])
           .join("")
           .split(" ")
-          .filter((item) => item !== "")
+          .filter((item: string) => item !== "")
       );
-
-      // Separa cada elemento de acordo com o reagente/produto
-      const reagentsElementsByReagent: string[][] = reagentsList.map(
-        (reagent) =>
-          reagent
-            .split("")
-            .reduce((acc: string[], char: string) => {
-              if (char === char.toUpperCase() && isNaN(Number(char))) {
-                acc.push(` ${char}`);
-              } else {
-                acc.push(char);
-              }
-              return acc;
-            }, [])
-            .join("")
-            .split(" ")
-            .filter((item: string) => item !== "")
-      );
-
-      const productsElementsByProduct: string[][] = productsList.map(
-        (product) =>
-          product
-            .split("")
-            .reduce((acc: string[], char: string) => {
-              if (char === char.toUpperCase() && isNaN(Number(char))) {
-                acc.push(` ${char}`);
-              } else {
-                acc.push(char);
-              }
-              return acc;
-            }, [])
-            .join("")
-            .split(" ")
-            .filter((item: string) => item !== "")
-      );
-
-      //divide cada elemento com o multiplicador e conta os presentes no reagente/produto
-      const reagentsElementsCount: { [key: string]: number } = {};
-      reagentsElementsByReagent.forEach((elements) => {
-        elements.forEach((element) => {
-          //separar a parte numérica como contagem e o simbolo do elemento
-          const match = element.match(/(\D+)(\d*)/);
-          if (match) {
-            const elementName = match[1];
-            const count = match[2] ? parseInt(match[2], 10) : 1;
-            
-            reagentsElementsCount[elementName] =
-              (reagentsElementsCount[elementName] || 0) + count;
-          }
-        });
-      });
-
-      const productsElementsCount: { [key: string]: number } = {};
-      productsElementsByProduct.forEach((elements) => {
-        elements.forEach((element) => {
-          //separar a parte numérica como contagem e o simbolo do elemento
-          const match = element.match(/(\D+)(\d*)/);
-          if (match) {
-            const elementName = match[1];
-            const count = match[2] ? parseInt(match[2], 10) : 1;
-            
-            productsElementsCount[elementName] =
-              (productsElementsCount[elementName] || 0) + count;
-          }
-        });
-      });
-
-      console.table({
-        "reagentes:": reagentsList.join(", "),
-        "produtos:": productsList.join(", "),
-        "elementos reagentes:": reagentsElements.join(", "),
-        "elementos produtos:": productsElements.join(", "),
-      });
-      console.log(reagentsElementsByReagent);
-      console.log(productsElementsByProduct);
-      console.table(reagentsElementsCount);
-      console.table(productsElementsCount);
 
       const equationSystem = createEquationSystem(
         reagentsList,
@@ -265,47 +200,124 @@ function EquationBalancer() {
       if (coefficients.length === 0) {
         return "Não foi possível balancear a equação.";
       }
-      console.log("Coeficientes:", coefficients);
 
       const reagentsStr = reagentsList.map((reagent, index) => {
-        return `${coefficients[index] === 1 ? "" : coefficients[index]}${reagent}`;
+        const coef = coefficients[index];
+        return `${coef === 1 ? "" : `<coeff>${coef}</coeff>`}${reagent}`;
       });
       const productsStr = productsList.map((product, index) => {
-        return `${coefficients[index + reagentsList.length] === 1 ? "" : coefficients[index + reagentsList.length]}${product}`;
+        const coef = coefficients[index + reagentsList.length];
+        return `${coef === 1 ? "" : `<coeff>${coef}</coeff>`}${product}`;
       });
-      console.log("Equações do sistema:", equationSystem.equations);
-      console.log("Variáveis do sistema:", equationSystem.variables);
 
-      return `${reagentsStr.join(" + ")} = ${productsStr.join(" + ")}`;
+      return `${reagentsStr.join(" + ")} → ${productsStr.join(" + ")}`;
     }
     return "";
   }
 
-  const result: string = balanceEquation(reagents, products);
+  const result: string = balanceEquation(reagents.trim(), products.trim());
 
   return (
-    <div className="molar-mass-calc-page">
-      <Header />
-      <h1>Balanceador de equações</h1>
-      <h2>Insira a equação:</h2>
-      <div className="equation-inputs-container">
-        <input
-          type="text"
-          placeholder="Reagente, Ex: H2 + O2"
-          value={reagents}
-          onChange={(e) => setReagents(e.target.value)}
-        />
-        =
-        <input
-          type="text"
-          placeholder="Produto, Ex: H2O"
-          value={products}
-          onChange={(e) => setProducts(e.target.value)}
-        />
+    <div className="tool-page-layout">
+      <div className="tool-bg-effects">
+        <div className="glow-orb orb-1"></div>
+        <div className="glow-orb orb-2"></div>
       </div>
-      <p style={{fontSize: "1.4em", fontWeight: "bold"}}>{result}</p>
+
+      <Header />
+
+      <main className="tool-main-content">
+        <div className="tool-header-block">
+          <h1 className="tool-page-title">Balanceador de Equações</h1>
+          <p className="tool-page-subtitle">
+            Insira os reagentes e produtos para determinar automaticamente os coeficientes estequiométricos da reação.
+          </p>
+        </div>
+
+        <div className="tool-glass-card">
+          <div className="equation-inputs-grid">
+            <div className="tool-input-group">
+              <label className="tool-input-label">Reagentes:</label>
+              <input
+                type="text"
+                className="tool-input-field"
+                placeholder="Ex: H2 + O2"
+                value={reagents}
+                onChange={(e) => setReagents(e.target.value)}
+              />
+            </div>
+
+            <div className="reaction-equals-badge">
+              <FontAwesomeIcon icon={faArrowRight} />
+            </div>
+
+            <div className="tool-input-group">
+              <label className="tool-input-label">Produtos:</label>
+              <input
+                type="text"
+                className="tool-input-field"
+                placeholder="Ex: H2O"
+                value={products}
+                onChange={(e) => setProducts(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="presets-wrapper">
+            <span className="presets-label">
+              <FontAwesomeIcon icon={faFlask} /> Exemplo de Reações:
+            </span>
+            <div className="preset-chips">
+              {PRESET_REACTIONS.map((preset) => (
+                <button
+                  key={preset.label}
+                  className={`chip-btn ${reagents === preset.reagents && products === preset.products ? "active" : ""}`}
+                  onClick={() => {
+                    setReagents(preset.reagents);
+                    setProducts(preset.products);
+                  }}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {result && (
+            <div className="tool-result-card">
+              {result.startsWith("Não foi possível") ? (
+                <div className="equation-error-card">
+                  <FontAwesomeIcon icon={faExclamationTriangle} />
+                  <span>{result} Verifique as fórmulas informadas.</span>
+                </div>
+              ) : (
+                <div className="balanced-equation-result">
+                  {result.split(" ").map((token, index) => {
+                    if (token.includes("<coeff>")) {
+                      const val = token.replace("<coeff>", "").replace("</coeff>", "");
+                      return (
+                        <span key={index} className="coefficient-badge">
+                          {val}
+                        </span>
+                      );
+                    }
+                    if (token === "→") {
+                      return (
+                        <FontAwesomeIcon key={index} icon={faArrowRight} className="reaction-arrow" />
+                      );
+                    }
+                    return <span key={index}>{token}</span>;
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </main>
+
       <Footer />
     </div>
   );
 }
+
 export default EquationBalancer;

@@ -1,12 +1,245 @@
-.periodic-table-page,
-.molar-mass-calc-page{
+/* ==========================================================================
+   CheMister - Unified Tool Pages Layout & Styling
+   ========================================================================== */
+
+/* Main Container Layout ensuring full height (min 100vh / 100dvh) */
+.tool-page-layout {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0f1217;
+  color: #f1f5f9;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background Ambient Orbs */
+.tool-bg-effects {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.22;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #10be6d 0%, rgba(16, 190, 109, 0) 70%);
+  top: -80px;
+  left: 5%;
+}
+
+.orb-2 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, #0c9f56 0%, rgba(12, 159, 86, 0) 70%);
+  bottom: 50px;
+  right: 5%;
+}
+
+/* Main Content Area filling remaining vertical space between Header and Footer */
+.tool-main-content {
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 80px;
-  min-height: 100dvh;
-  gap: 1.4em;
-  color: #fff;
-  background-color: #0f1217;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 110px 24px 60px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+/* Header Info Block inside tool pages */
+.tool-header-block {
+  text-align: center;
+  max-width: 700px;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.tool-category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(16, 190, 109, 0.12);
+  border: 1px solid rgba(16, 190, 109, 0.3);
+  color: #34d399;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tool-page-title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.tool-page-subtitle {
+  font-size: 1.05rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Glassmorphic Container Cards */
+.tool-glass-card {
+  width: 100%;
+  max-width: 750px;
+  background: rgba(22, 27, 34, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 36px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 0 30px rgba(16, 190, 109, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tool-glass-card:hover {
+  border-color: rgba(16, 190, 109, 0.25);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 35px rgba(16, 190, 109, 0.1);
+}
+
+/* Preset Chips */
+.presets-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.presets-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chip-btn:hover {
+  background: rgba(16, 190, 109, 0.2);
+  border-color: rgba(16, 190, 109, 0.4);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.chip-btn.active {
+  background: linear-gradient(135deg, #10be6d 0%, #0c9f56 100%);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(16, 190, 109, 0.3);
+}
+
+/* Styled Inputs */
+.tool-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.tool-input-label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.tool-input-field {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(15, 18, 23, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.tool-input-field:focus {
+  border-color: #10be6d;
+  box-shadow: 0 0 0 3px rgba(16, 190, 109, 0.25);
+  background: rgba(15, 18, 23, 0.95);
+}
+
+.tool-input-field::placeholder {
+  color: #64748b;
+}
+
+/* Result Box */
+.tool-result-card {
+  background: linear-gradient(135deg, rgba(16, 190, 109, 0.12) 0%, rgba(12, 159, 86, 0.05) 100%);
+  border: 1px solid rgba(16, 190, 109, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+/* Media Queries for responsive spacing */
+@media screen and (max-width: 768px) {
+  .tool-main-content {
+    padding: 95px 16px 40px;
+  }
+  .tool-glass-card {
+    padding: 24px 18px;
+  }
 }

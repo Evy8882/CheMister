@@ -1,17 +1,79 @@
-.equation-inputs-container{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    font-size: 1.5em;
+/* Equation Balancer Custom Styles */
+
+.equation-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
 }
-.equation-inputs-container input {
-    width: 40%;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: .75em;
-    border: 1px solid #ccc;
-    background-color: #111;
-    color: #fff;
-    margin-bottom: 10px;
+
+.reaction-equals-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(16, 190, 109, 0.15);
+  border: 1px solid rgba(16, 190, 109, 0.3);
+  color: #34d399;
+  font-size: 1.2rem;
+  font-weight: 800;
+  align-self: flex-end;
+  margin-bottom: 2px;
+}
+
+.balanced-equation-result {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.coefficient-badge {
+  background: linear-gradient(135deg, #10be6d 0%, #0c9f56 100%);
+  color: #ffffff;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(16, 190, 109, 0.3);
+  display: inline-block;
+}
+
+.reaction-arrow {
+  color: #34d399;
+  font-size: 1.4rem;
+  margin: 0 6px;
+}
+
+.equation-error-card {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #fca5a5;
+  font-size: 0.95rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+@media screen and (max-width: 640px) {
+  .equation-inputs-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .reaction-equals-badge {
+    align-self: center;
+    margin: 4px 0;
+  }
 }
