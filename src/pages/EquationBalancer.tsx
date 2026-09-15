@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import { useState } from "react";
 import Footer from "../components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faScaleBalanced, faFlask, faArrowRight, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { faFlask, faArrowRight, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import "../styles/App.css";
 import "../styles/EquationBalancer.css";
 import { fraction, lcm, matrix, lusolve } from "mathjs";

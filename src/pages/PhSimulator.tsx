@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import { useState } from "react";
 import Footer from "../components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVial, faFlask, faVialCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faFlask, faVialCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import "../styles/App.css";
 import "../styles/PhSimulator.css";
 

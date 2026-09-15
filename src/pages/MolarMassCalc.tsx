@@ -3,7 +3,7 @@ import { useState } from "react";
 import elements from "../data/elements.json";
 import Footer from "../components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalculator, faFlask, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { faFlask, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import "../styles/App.css";
 import "../styles/MolarMassCalc.css";
 
