@@ -232,9 +232,6 @@ function Home() {
             <Link to="/periodic-table" className="btn-primary banner-btn">
               <FontAwesomeIcon icon={faTableCells} /> Explorar Tabela Periódica
             </Link>
-            <Link to="/solubility-calculator" className="btn-secondary banner-btn">
-              <FontAwesomeIcon icon={faDroplet} /> Calculadora de Solubilidade
-            </Link>
           </div>
         </div>
       </section>

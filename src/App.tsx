@@ -5,7 +5,6 @@ import MolarMassCalc from './pages/MolarMassCalc'
 import EquationBalancer from './pages/EquationBalancer'
 import PhSimulator from './pages/PhSimulator'
 import CalculadorSolubilidade from './pages/CalculadoraSolubilidade'
-import Informacoes from './pages/informacoes'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 
@@ -23,6 +22,8 @@ function App() {
         <Route path="/solubility-calculator" element={<CalculadorSolubilidade/>} />
         <Route path="/calculadora-solubilidade" element={<CalculadorSolubilidade/>} />
         <Route path="/CalculadorSolubilidade" element={<CalculadorSolubilidade/>} />
+        <Route path="/solubility-table" element={<TabelaSolubilidade/>} />
+        <Route path="/tabela-solubilidade" element={<TabelaSolubilidade/>} />
       </Routes>
     </Router>
   )

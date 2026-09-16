@@ -40,6 +40,12 @@ const contributors: Contributor[] = [
     role: "Apoiadora",
     github: "https://github.com/Hihi1502",
     avatar: "https://github.com/Hihi1502.png"
+  },
+  {
+    name: "Eduardo Dani",
+    role: "Auxilio Criativo",
+    github: "https://github.com/edudanisilva08",
+    avatar: "https://github.com/edudanisilva08.png"
   }
 ];
 
@@ -118,6 +124,7 @@ function Footer() {
             <li><Link to="/equation-balancer">Balanceador de Equações</Link></li>
             <li><Link to="/ph-simulator">Simulador de pH</Link></li>
             <li><Link to="/solubility-calculator">Calculadora de Solubilidade</Link></li>
+            <li><Link to="/tabela-solubilidade">Tabela de Solubilidade</Link></li>
           </ul>
         </div>
       </div>
