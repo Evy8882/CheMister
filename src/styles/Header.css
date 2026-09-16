@@ -1,118 +1,493 @@
-.main-header{
-    font-weight: 600;
-    color: #fff;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    align-items: center;
-    width: 100%;
-    padding: 2em 1em;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    top: 0;
-    height: 80px;
-    z-index: 10;
-  }
-  .main-header b{
-    margin: 0 2em;
-    font-size: 1.2em;
-    color: #0c9f56;
-    font-weight: 800;
-  }
-  .header-links{
-    display: flex;
-    gap: 1em;
-  }
-  .header-links a{
-    text-decoration: none;
-    color: #0c9f56;
-    font-weight: 600;
-    padding: 10px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-  }
-  .header-links:hover a:not(:hover){
-    color: #999;
-  }
-  .header-links a:hover{
-    transform: scale(1.1);
-  }
-  .header-logo{
-    height: 70px;
-  }
-  .menu-btn{
+/* ==========================================================================
+   Header Component - CheMister Modern Design System
+   ========================================================================== */
+
+.chemister-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 74px;
+  z-index: 1000;
+  background: rgba(13, 13, 17, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(16, 190, 109, 0.18);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.header-container {
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   Brand & Logo (Apenas a imagem do logotipo)
+   -------------------------------------------------------------------------- */
+.header-brand,
+.drawer-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  user-select: none;
+  outline: none;
+}
+
+.brand-logo {
+  height: 54px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+}
+
+.drawer-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+}
+
+.header-brand:hover .brand-logo,
+.drawer-brand:hover .drawer-logo {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 12px rgba(16, 190, 109, 0.65));
+}
+
+/* --------------------------------------------------------------------------
+   Desktop Navigation
+   -------------------------------------------------------------------------- */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.nav-icon {
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.nav-link:hover .nav-icon {
+  color: #10be6d;
+  transform: scale(1.1);
+}
+
+/* Active State Desktop */
+.nav-link.active {
+  color: #ffffff;
+  background: rgba(16, 190, 109, 0.14);
+  border-color: rgba(16, 190, 109, 0.35);
+  box-shadow: 0 0 14px rgba(16, 190, 109, 0.12);
+}
+
+.nav-link.active .nav-icon {
+  color: #34d399;
+}
+
+/* --------------------------------------------------------------------------
+   Tools Submenu Dropdown
+   -------------------------------------------------------------------------- */
+.tools-dropdown-container {
+  position: relative;
+}
+
+.dropdown-toggle {
+  outline: none;
+}
+
+.chevron-icon {
+  font-size: 0.75rem;
+  margin-left: 2px;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #64748b;
+}
+
+.dropdown-toggle:hover .chevron-icon,
+.dropdown-toggle.active .chevron-icon {
+  color: #34d399;
+}
+
+.chevron-icon.rotate {
+  transform: rotate(180deg);
+}
+
+.tools-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 310px;
+  background: rgba(11, 20, 16, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(16, 190, 109, 0.25);
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s ease;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tools-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-header-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #34d399;
+  padding: 8px 12px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 4px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(16, 190, 109, 0.12);
+  border: 1px solid rgba(16, 190, 109, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #34d399;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  transition: color 0.2s ease;
+}
+
+.item-desc {
+  font-size: 0.74rem;
+  color: #64748b;
+  margin-top: 2px;
+  transition: color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(16, 190, 109, 0.1);
+  border-color: rgba(16, 190, 109, 0.25);
+  transform: translateX(3px);
+}
+
+.dropdown-item:hover .item-title {
+  color: #ffffff;
+}
+
+.dropdown-item:hover .item-desc {
+  color: #94a3b8;
+}
+
+.dropdown-item:hover .dropdown-item-icon {
+  background: rgba(16, 190, 109, 0.25);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(16, 190, 109, 0.3);
+}
+
+.dropdown-item.active {
+  background: linear-gradient(135deg, rgba(16, 190, 109, 0.2) 0%, rgba(12, 159, 86, 0.12) 100%);
+  border-color: rgba(16, 190, 109, 0.4);
+}
+
+.dropdown-item.active .item-title {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.dropdown-item.active .dropdown-item-icon {
+  background: #10be6d;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(16, 190, 109, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Toggle Button
+   -------------------------------------------------------------------------- */
+.mobile-toggle-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(16, 190, 109, 0.12);
+  border: 1px solid rgba(16, 190, 109, 0.3);
+  color: #34d399;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-toggle-btn:hover,
+.mobile-toggle-btn:active {
+  background: rgba(16, 190, 109, 0.22);
+  color: #ffffff;
+  transform: scale(1.04);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Backdrop & Drawer (Preenche 100% da tela verticalmente)
+   -------------------------------------------------------------------------- */
+.mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.mobile-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  width: 320px;
+  max-width: 88vw;
+  background: rgba(10, 18, 15, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(16, 190, 109, 0.25);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.75);
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.drawer-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.drawer-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.mobile-nav-list {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.mobile-section-divider {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #34d399;
+  margin: 14px 4px 6px;
+  padding-left: 8px;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.22s ease;
+}
+
+.mobile-nav-content {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-icon-wrapper {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(16, 190, 109, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #34d399;
+  margin-right: 12px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover {
+  background: rgba(16, 190, 109, 0.1);
+  border-color: rgba(16, 190, 109, 0.25);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.mobile-nav-link:hover .mobile-icon-wrapper {
+  background: rgba(16, 190, 109, 0.25);
+  color: #ffffff;
+}
+
+.mobile-nav-link.active {
+  background: linear-gradient(135deg, rgba(16, 190, 109, 0.22) 0%, rgba(12, 159, 86, 0.15) 100%);
+  border-color: rgba(16, 190, 109, 0.45);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(16, 190, 109, 0.15);
+}
+
+.mobile-nav-link.active .mobile-icon-wrapper {
+  background: #10be6d;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(16, 190, 109, 0.5);
+}
+
+.active-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: rgba(16, 190, 109, 0.3);
+  color: #34d399;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(16, 190, 109, 0.4);
+}
+
+.drawer-footer {
+  padding: 18px 20px;
+  font-size: 0.8rem;
+  color: #64748b;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.25);
+  margin-top: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 900px) {
+  .desktop-nav {
     display: none;
-    background: linear-gradient(45deg, #10be6d, #0c9f56);
-    background-size: cover;
-    cursor: pointer;
-    border: none;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    justify-content: center;
-    align-items: center;
   }
-  .close-btn{
-    display: none;
-    position: fixed;
-    background: #10be6d;
-    background-size: cover;
-    cursor: pointer;
-    border: none;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    justify-content: center;
-    align-items: center;
-    bottom: 4px;
-    right: 4px;
-    z-index: 20;
+  .mobile-toggle-btn {
+    display: flex;
   }
-  @media screen and (max-width: 768px) {
-    .main-header b {
-      margin: 0;
-    }
-    .header-links {
-      /* display: none; */
-      height: 100vh;
-      position: fixed;
-      right: -100%;
-      top: 0;
-      background-color: #007e3f;
-      z-index: 10;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 0;
-      transition: right 0.3s ease;
-    }
-    .header-links a{
-      color: #fff;
-    }
-    .header-links a:hover{
-      transform: scale(1);
-    }
-    .header-links.active{
-      display: flex;
-      right: 0;
-    }
-    .header-links.active .close-btn{
-      display: flex;
-    }
-    .header-links *:not(.close-btn){
-      margin: 1em 0;
-      color: white;
-      outline: 1px solid #fff6;
-      width: 100%;
-      height: min(50px, 18vh);
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .menu-btn {
-      display: flex;
-    }
+}
+
+@media screen and (max-width: 480px) {
+  .header-container {
+    padding: 0 16px;
   }
+  .brand-logo {
+    height: 44px;
+  }
+  .drawer-logo {
+    height: 40px;
+  }
+}
