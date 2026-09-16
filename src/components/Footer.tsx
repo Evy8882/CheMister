@@ -118,6 +118,7 @@ function Footer() {
             <li><Link to="/equation-balancer">Balanceador de Equações</Link></li>
             <li><Link to="/ph-simulator">Simulador de pH</Link></li>
             <li><Link to="/solubility-calculator">Calculadora de Solubilidade</Link></li>
+            <li><Link to="/tabela-solubilidade">Tabela de Solubilidade</Link></li>
           </ul>
         </div>
       </div>

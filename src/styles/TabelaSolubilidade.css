@@ -1,0 +1,75 @@
+.solubility-table-page .tool-main-content { justify-content: flex-start; }
+.solubility-table-card { width: 100%; background: rgba(22, 27, 34, 0.78); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; overflow: hidden; backdrop-filter: blur(16px); box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3); }
+.solubility-table-toolbar { display: flex; gap: 16px; align-items: center; justify-content: space-between; padding: 22px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.solubility-search { display: flex; align-items: center; gap: 10px; width: min(300px, 100%); color: #64748b; padding: 11px 14px; background: rgba(15, 18, 23, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; }
+.solubility-search:focus-within { border-color: #10be6d; box-shadow: 0 0 0 3px rgba(16, 190, 109, 0.15); }
+.solubility-search input { width: 100%; border: 0; outline: 0; background: transparent; color: #f8fafc; font: inherit; }
+.solubility-search input::placeholder { color: #64748b; }
+.solubility-filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.solubility-filters button { border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; background: rgba(30, 41, 59, 0.55); color: #cbd5e1; padding: 8px 12px; cursor: pointer; font: inherit; font-size: 0.82rem; transition: 0.2s ease; }
+.solubility-filters button:hover, .solubility-filters button.active { background: rgba(16, 190, 109, 0.18); border-color: rgba(16, 190, 109, 0.5); color: #86efac; }
+.solubility-filters .reset-filter { color: #94a3b8; padding: 8px 11px; }
+.solubility-scroll-area { overflow-x: auto; }
+.solubility-matrix { width: 100%; min-width: 760px; border-collapse: collapse; table-layout: fixed; }
+.solubility-matrix th, .solubility-matrix td { border-right: 1px solid rgba(255, 255, 255, 0.06); border-bottom: 1px solid rgba(255, 255, 255, 0.06); text-align: center; }
+.solubility-matrix thead th { height: 66px; color: #a7f3d0; background: rgba(16, 185, 129, 0.08); font-size: 1rem; }
+.solubility-matrix .corner-cell { width: 145px; text-align: left; padding: 0 18px; color: #f8fafc; }
+.corner-cell span, .corner-cell small { display: block; }.corner-cell small { color: #64748b; font-size: 0.72rem; margin-top: 4px; }
+.solubility-matrix tbody th { width: 145px; padding: 10px 16px; text-align: left; background: rgba(255, 255, 255, 0.025); }
+.solubility-matrix tbody th strong { display: block; color: #f8fafc; font-size: 1rem; }.solubility-matrix tbody th span { display: block; color: #64748b; font-size: 0.72rem; margin-top: 3px; }
+.solubility-cell { width: 100%; height: 58px; border: 0; color: inherit; font: inherit; font-weight: 800; font-size: 0.86rem; cursor: pointer; transition: background 0.2s ease, box-shadow 0.2s ease; }.solubility-cell:hover { background: rgba(255, 255, 255, 0.1); }.solubility-cell.selected { box-shadow: inset 0 0 0 2px #f8fafc; }
+.solubility-cell.soluble { color: #6ee7b7; background: rgba(16, 185, 129, 0.08); }.solubility-cell.slightly { color: #fcd34d; background: rgba(245, 158, 11, 0.08); }.solubility-cell.insoluble { color: #fda4af; background: rgba(244, 63, 94, 0.07); }
+.empty-table-message { padding: 42px; text-align: center; color: #94a3b8; }
+.selected-solubility-card { margin: 18px 24px 0; padding: 18px 20px; border: 1px solid rgba(16, 190, 109, 0.32); border-radius: 14px; background: linear-gradient(110deg, rgba(16, 190, 109, 0.13), rgba(15, 18, 23, 0.45)); }
+.selected-solubility-heading { display: flex; align-items: center; justify-content: space-between; color: #86efac; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }.selected-solubility-heading button { border: 0; background: transparent; color: #94a3b8; cursor: pointer; font-size: 1rem; }.selected-solubility-heading button:hover { color: #fff; }
+.selected-solubility-content { display: grid; grid-template-columns: 0.7fr 1.8fr 1fr; gap: 20px; align-items: center; margin-top: 14px; }.selected-solubility-content div { display: flex; flex-direction: column; gap: 5px; }.selected-solubility-content small { color: #64748b; font-size: 0.72rem; }.selected-solubility-content strong { color: #f8fafc; font-size: 0.98rem; }.formula-display strong { color: #a7f3d0; font-size: 1.55rem; }.selected-status strong { color: #6ee7b7; }.selected-status.slightly strong { color: #fcd34d; }.selected-status.insoluble strong { color: #fda4af; }.selected-solubility-card p { margin: 15px 0 0; color: #64748b; font-size: 0.76rem; }
+.solubility-table-footer { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 18px 24px; }.solubility-legend { display: flex; gap: 16px; flex-wrap: wrap; color: #cbd5e1; font-size: 0.8rem; }.solubility-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend-dot { width: 8px; height: 8px; display: inline-block; border-radius: 50%; }.legend-dot.soluble { background: #34d399; }.legend-dot.slightly { background: #fbbf24; }.legend-dot.insoluble { background: #fb7185; }
+.solubility-table-footer p { margin: 0; color: #64748b; font-size: 0.76rem; text-align: right; }.solubility-table-footer p svg { margin-right: 5px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 760px) { .solubility-table-toolbar, .solubility-table-footer { align-items: stretch; flex-direction: column; }.solubility-search { width: auto; }.solubility-filters { justify-content: flex-start; }.selected-solubility-card { margin: 14px 16px 0; }.selected-solubility-content { grid-template-columns: 1fr 1fr; gap: 14px; }.selected-solubility-content div:nth-child(2) { grid-column: span 2; order: -1; }.solubility-table-footer p { text-align: left; line-height: 1.5; } }
+
+/* Refinements for scanning the matrix on smaller screens. */
+.solubility-table-page .tool-header-block { margin-bottom: 28px; }
+.solubility-table-page .tool-category-badge svg { color: #6ee7b7; }
+.solubility-table-card { border-color: rgba(110, 231, 183, 0.14); }
+.solubility-table-toolbar { background: rgba(255, 255, 255, 0.018); }
+.solubility-filters button { min-height: 38px; }
+.solubility-filters button:focus-visible,
+.solubility-search:focus-within,
+.selected-solubility-heading button:focus-visible,
+.solubility-cell:focus-visible { outline: 2px solid #6ee7b7; outline-offset: 2px; }
+.solubility-scroll-area { scrollbar-color: #356b57 rgba(255, 255, 255, 0.04); scrollbar-width: thin; }
+.solubility-matrix thead th { position: sticky; top: 0; z-index: 2; }
+.solubility-matrix .corner-cell { position: sticky; left: 0; z-index: 4; background: #17221f; }
+.solubility-matrix tbody th { position: sticky; left: 0; z-index: 1; background: #171e21; box-shadow: 8px 0 12px rgba(8, 12, 14, 0.2); }
+.solubility-matrix tbody tr:hover th { background: #1d2b27; }
+.solubility-matrix thead th:not(.corner-cell) { box-shadow: 0 5px 12px rgba(8, 12, 14, 0.2); }
+.solubility-cell { display: block; }
+.selected-solubility-card { animation: selected-card-in 0.22s ease-out; }
+@keyframes selected-card-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 600px) {
+	.solubility-table-page .tool-main-content { padding-top: 88px; }
+	.solubility-table-page .tool-header-block { gap: 9px; margin-bottom: 22px; }
+	.solubility-table-page .tool-page-subtitle { font-size: 0.93rem; line-height: 1.5; }
+	.solubility-table-card { border-radius: 15px; }
+	.solubility-table-toolbar { padding: 16px; gap: 13px; }
+	.solubility-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.solubility-filters button { width: 100%; padding: 8px 7px; font-size: 0.75rem; }
+	.solubility-filters .reset-filter { grid-column: span 2; }
+	.solubility-matrix { min-width: 690px; }
+	.solubility-matrix thead th { height: 58px; }
+	.solubility-matrix .corner-cell,
+	.solubility-matrix tbody th { width: 112px; }
+	.solubility-matrix .corner-cell { padding: 0 12px; }
+	.solubility-matrix tbody th { padding: 9px 12px; }
+	.solubility-matrix tbody th strong { font-size: 0.9rem; }
+	.solubility-cell { height: 52px; }
+	.selected-solubility-card { margin: 12px 13px 0; padding: 15px; }
+	.selected-solubility-content { grid-template-columns: 1fr 1fr; gap: 12px; }
+	.selected-solubility-content div:nth-child(2) { grid-column: span 2; }
+	.formula-display strong { font-size: 1.3rem; }
+	.selected-solubility-content strong { font-size: 0.88rem; }
+	.solubility-table-footer { padding: 15px 16px; }
+}
