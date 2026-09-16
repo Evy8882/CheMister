@@ -17,11 +17,42 @@ import logo from "../assets/Logos/4.png";
 import "../styles/Header.css";
 
 const TOOLS_ITEMS = [
-  { path: "/periodic-table", label: "Tabela Periódica", icon: faTableCells, desc: "118 elementos interativos" },
-  { path: "/molar-mass-calculator", label: "Massa Molar", icon: faCalculator, desc: "Cálculo preciso de massa molar" },
-  { path: "/equation-balancer", label: "Balanceador de Equações", icon: faScaleBalanced, desc: "Balanceamento de reações" },
-  { path: "/ph-simulator", label: "Simulador de pH", icon: faVial, desc: "Escala de acidez e alcalinidade" },
-  { path: "/solubility-calculator", label: "Calculadora de Solubilidade", icon: faDroplet, desc: "Saturação de soluções" }
+  {
+    path: "/periodic-table",
+    label: "Tabela Periódica",
+    icon: faTableCells,
+    desc: "118 elementos interativos"
+  },
+  {
+    path: "/molar-mass-calculator",
+    label: "Massa Molar",
+    icon: faCalculator,
+    desc: "Cálculo preciso de massa molar"
+  },
+  {
+    path: "/equation-balancer",
+    label: "Balanceador de Equações",
+    icon: faScaleBalanced,
+    desc: "Balanceamento de reações"
+  },
+  {
+    path: "/ph-simulator",
+    label: "Simulador de pH",
+    icon: faVial,
+    desc: "Escala de acidez e alcalinidade"
+  },
+  {
+    path: "/solubility-calculator",
+    label: "Calculadora de Solubilidade",
+    icon: faDroplet,
+    desc: "Saturação de soluções"
+  },
+  {
+    path: "/tabela-solubilidade",
+    label: "Tabela de Solubilidade",
+    icon: faTableCells,
+    desc: "Tabela de solubilidade"
+  }
 ];
 
 function Header() {
@@ -45,6 +76,7 @@ function Header() {
     } else {
       document.body.style.overflow = "";
     }
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -83,6 +115,7 @@ function Header() {
       document.addEventListener("mousedown", handleOutsideClick);
       document.addEventListener("touchstart", handleOutsideClick);
     }
+
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
@@ -106,6 +139,7 @@ function Header() {
     if (path === "/solubility-calculator") {
       return isSolubilityActive(location.pathname);
     }
+
     return location.pathname === path;
   };
 
@@ -114,6 +148,7 @@ function Header() {
   return (
     <header className="chemister-header">
       <div className="header-container">
+
         {/* Logo Apenas (Sem texto adjacente) */}
         <Link to="/" className="header-brand" aria-label="CheMister Início">
           <img src={logo} alt="CheMister" className="brand-logo" />
@@ -121,6 +156,7 @@ function Header() {
 
         {/* Navegação Desktop: Início + Submenu Ferramentas */}
         <nav className="desktop-nav" aria-label="Navegação Principal">
+
           <Link
             to="/"
             className={`nav-link ${isHomeActive ? "active" : ""}`}
@@ -131,27 +167,43 @@ function Header() {
 
           {/* Submenu de Ferramentas */}
           <div
-            className={`tools-dropdown-container ${isToolsDropdownOpen ? "open" : ""}`}
+            className={`tools-dropdown-container ${
+              isToolsDropdownOpen ? "open" : ""
+            }`}
             ref={dropdownRef}
           >
             <button
-              className={`nav-link dropdown-toggle ${isAnyToolActive ? "active" : ""}`}
+              className={`nav-link dropdown-toggle ${
+                isAnyToolActive ? "active" : ""
+              }`}
               onClick={() => setIsToolsDropdownOpen(!isToolsDropdownOpen)}
               aria-expanded={isToolsDropdownOpen}
               type="button"
             >
               <FontAwesomeIcon icon={faFlask} className="nav-icon" />
+
               <span>Ferramentas</span>
+
               <FontAwesomeIcon
                 icon={faChevronDown}
-                className={`chevron-icon ${isToolsDropdownOpen ? "rotate" : ""}`}
+                className={`chevron-icon ${
+                  isToolsDropdownOpen ? "rotate" : ""
+                }`}
               />
             </button>
 
-            <div className={`tools-dropdown-menu ${isToolsDropdownOpen ? "show" : ""}`}>
-              <div className="dropdown-header-title">Ferramentas Interativas</div>
+            <div
+              className={`tools-dropdown-menu ${
+                isToolsDropdownOpen ? "show" : ""
+              }`}
+            >
+              <div className="dropdown-header-title">
+                Ferramentas Interativas
+              </div>
+
               {TOOLS_ITEMS.map((tool) => {
                 const active = isToolActive(tool.path);
+
                 return (
                   <Link
                     key={tool.path}
@@ -162,6 +214,7 @@ function Header() {
                     <span className="dropdown-item-icon">
                       <FontAwesomeIcon icon={tool.icon} />
                     </span>
+
                     <div className="dropdown-item-text">
                       <span className="item-title">{tool.label}</span>
                       <span className="item-desc">{tool.desc}</span>
@@ -200,10 +253,16 @@ function Header() {
         aria-label="Menu Mobile"
       >
         <div className="drawer-header">
+
           {/* Logo Apenas no Drawer */}
-          <Link to="/" className="drawer-brand" onClick={() => setIsMobileOpen(false)}>
+          <Link
+            to="/"
+            className="drawer-brand"
+            onClick={() => setIsMobileOpen(false)}
+          >
             <img src={logo} alt="CheMister" className="drawer-logo" />
           </Link>
+
           <button
             className="drawer-close-btn"
             onClick={() => setIsMobileOpen(false)}
@@ -215,38 +274,56 @@ function Header() {
         </div>
 
         <nav className="mobile-nav-list">
+
           <Link
             to="/"
-            className={`mobile-nav-link ${isHomeActive ? "active" : ""}`}
+            className={`mobile-nav-link ${
+              isHomeActive ? "active" : ""
+            }`}
             onClick={() => setIsMobileOpen(false)}
           >
             <div className="mobile-nav-content">
               <span className="mobile-icon-wrapper">
                 <FontAwesomeIcon icon={faHouse} />
               </span>
+
               <span className="mobile-nav-label">Início</span>
             </div>
-            {isHomeActive && <span className="active-badge">Atual</span>}
+
+            {isHomeActive && (
+              <span className="active-badge">Atual</span>
+            )}
           </Link>
 
-          <div className="mobile-section-divider">Ferramentas</div>
+          <div className="mobile-section-divider">
+            Ferramentas
+          </div>
 
           {TOOLS_ITEMS.map((tool) => {
             const active = isToolActive(tool.path);
+
             return (
               <Link
                 key={tool.path}
                 to={tool.path}
-                className={`mobile-nav-link ${active ? "active" : ""}`}
+                className={`mobile-nav-link ${
+                  active ? "active" : ""
+                }`}
                 onClick={() => setIsMobileOpen(false)}
               >
                 <div className="mobile-nav-content">
                   <span className="mobile-icon-wrapper">
                     <FontAwesomeIcon icon={tool.icon} />
                   </span>
-                  <span className="mobile-nav-label">{tool.label}</span>
+
+                  <span className="mobile-nav-label">
+                    {tool.label}
+                  </span>
                 </div>
-                {active && <span className="active-badge">Atual</span>}
+
+                {active && (
+                  <span className="active-badge">Atual</span>
+                )}
               </Link>
             );
           })}
