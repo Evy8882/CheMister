@@ -109,9 +109,9 @@ function Home() {
             <a href="#tools-section" className="btn-primary">
               <FontAwesomeIcon icon={faFlask} /> Explorar Ferramentas
             </a>
-            <a href="#features-section" className="btn-secondary">
+            <Link to="/informacoes" className="btn-secondary">
               <FontAwesomeIcon icon={faCircleInfo} /> Conhecer a Plataforma
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -242,4 +242,3 @@ function Home() {
 }
 
 export default Home;
-
