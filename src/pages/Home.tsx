@@ -109,7 +109,6 @@ function Home() {
             <a href="#tools-section" className="btn-primary">
               <FontAwesomeIcon icon={faFlask} /> Explorar Ferramentas
             </a>
-            {/* Botão direcionado para a página /informacoes */}
             <Link to="/informacoes" className="btn-secondary">
               <FontAwesomeIcon icon={faCircleInfo} /> Conhecer a Plataforma
             </Link>

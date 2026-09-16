@@ -5,6 +5,7 @@ import MolarMassCalc from './pages/MolarMassCalc'
 import EquationBalancer from './pages/EquationBalancer'
 import PhSimulator from './pages/PhSimulator'
 import CalculadorSolubilidade from './pages/CalculadoraSolubilidade'
+import Informacoes from './pages/informacoes'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 
@@ -14,6 +15,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home/>} />
+        <Route path="/informacoes" element={<Informacoes/>} />
         <Route path="/periodic-table" element={<PeriodicTable/>} />
         <Route path="/molar-mass-calculator" element={<MolarMassCalc/>} />
         <Route path="/equation-balancer" element={<EquationBalancer/>} />
