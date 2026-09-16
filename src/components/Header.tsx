@@ -29,6 +29,8 @@ function Header() {
   const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
+  const toggleBtnRef = useRef<HTMLButtonElement>(null);
 
   // Fechar menu mobile e dropdown ao mudar de rota
   useEffect(() => {
@@ -50,24 +52,45 @@ function Header() {
 
   // Fechar dropdown e menu mobile ao clicar fora ou ao pressionar ESC
   useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+
+      // Fechar menu mobile se o clique for fora do drawer e do botão toggle
+      if (
+        isMobileOpen &&
+        drawerRef.current &&
+        !drawerRef.current.contains(target) &&
+        toggleBtnRef.current &&
+        !toggleBtnRef.current.contains(target)
+      ) {
+        setIsMobileOpen(false);
+      }
+
+      // Fechar dropdown de ferramentas no desktop se o clique for fora
+      if (dropdownRef.current && !dropdownRef.current.contains(target)) {
         setIsToolsDropdownOpen(false);
       }
     };
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsMobileOpen(false);
         setIsToolsDropdownOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleOutsideClick);
+
+    if (isMobileOpen || isToolsDropdownOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener("touchstart", handleOutsideClick);
+    }
     window.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("touchstart", handleOutsideClick);
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [isMobileOpen, isToolsDropdownOpen]);
 
   const isHomeActive = location.pathname === "/";
 
@@ -152,6 +175,7 @@ function Header() {
 
         {/* Botão Toggle Mobile */}
         <button
+          ref={toggleBtnRef}
           className="mobile-toggle-btn"
           onClick={() => setIsMobileOpen(!isMobileOpen)}
           aria-label={isMobileOpen ? "Fechar menu" : "Abrir menu"}
@@ -170,7 +194,11 @@ function Header() {
       />
 
       {/* Menu Drawer Mobile - Preenche 100% da tela verticalmente */}
-      <aside className={`mobile-drawer ${isMobileOpen ? "open" : ""}`} aria-label="Menu Mobile">
+      <aside
+        ref={drawerRef}
+        className={`mobile-drawer ${isMobileOpen ? "open" : ""}`}
+        aria-label="Menu Mobile"
+      >
         <div className="drawer-header">
           {/* Logo Apenas no Drawer */}
           <Link to="/" className="drawer-brand" onClick={() => setIsMobileOpen(false)}>
