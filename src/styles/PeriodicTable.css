@@ -202,6 +202,12 @@
   gap: 8px;
 }
 
+.zoom-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .zoom-btn {
   width: 32px;
   height: 32px;
@@ -244,6 +250,20 @@
   color: #94a3b8;
   font-size: 0.75rem;
   cursor: pointer;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  white-space: nowrap;
+}
+
+.zoom-reset-btn.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.zoom-reset-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .zoom-reset-btn:hover {
@@ -535,6 +555,30 @@
     gap: 12px;
   }
 
+  .search-zoom-row {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 10px;
+  }
+
+  .search-box {
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 100%;
+  }
+
+  .zoom-controls {
+    flex-shrink: 0;
+    gap: 6px;
+  }
+
+  .zoom-label {
+    display: none;
+  }
+
   /* Desktop card in grid gets hidden on mobile, replaced by floating drawer */
   .desktop-selected-preview,
   .desktop-selected-details {
@@ -549,13 +593,15 @@
     transform: translateX(-50%);
     width: calc(100% - 32px);
     max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
     background: rgba(15, 20, 28, 0.95);
     border: 1px solid rgba(16, 190, 109, 0.5);
     border-radius: 16px;
     padding: 12px 16px;
     backdrop-filter: blur(20px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-    z-index: 100;
+    z-index: 1000;
     gap: 12px;
     align-items: center;
     box-sizing: border-box;
@@ -631,20 +677,5 @@
   to {
     transform: translate(-50%, 0);
     opacity: 1;
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .search-zoom-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .search-box {
-    max-width: 100%;
-  }
-
-  .zoom-controls {
-    justify-content: space-between;
   }
 }

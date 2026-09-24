@@ -17,7 +17,7 @@ type GetSelectedProps = {
   onClose?: () => void;
 };
 
-function GetSelected({ selected, color, fntColor, onClose }: GetSelectedProps) {
+export function GetSelectedDesktop({ selected, color, fntColor, onClose }: GetSelectedProps) {
   if (!selected) return null;
 
   const bg = color || "#27272a";
@@ -78,35 +78,55 @@ function GetSelected({ selected, color, fntColor, onClose }: GetSelectedProps) {
           </p>
         </div>
       </div>
+    </>
+  );
+}
 
-      {/* Mobile Floating Card / Sticky Drawer */}
-      <div className="mobile-selected-card">
-        <div
-          className="mobile-card-preview"
-          style={{ backgroundColor: bg, color: fntColor }}
-        >
-          <div className="atomic-number">{selected.atomicNumber}</div>
-          <div className="symbol">{selected.symbol}</div>
+export function GetSelectedMobile({ selected, color, fntColor, onClose }: GetSelectedProps) {
+  if (!selected) return null;
+
+  const bg = color || "#27272a";
+
+  return (
+    <div className="mobile-selected-card">
+      <div
+        className="mobile-card-preview"
+        style={{ backgroundColor: bg, color: fntColor }}
+      >
+        <div className="atomic-number">{selected.atomicNumber}</div>
+        <div className="symbol">{selected.symbol}</div>
+      </div>
+      <div className="mobile-card-content">
+        <div className="mobile-card-header">
+          <h4>{selected.name} ({selected.symbol})</h4>
+          {onClose && (
+            <button className="details-close-btn" onClick={onClose} title="Fechar">
+              ✕
+            </button>
+          )}
         </div>
-        <div className="mobile-card-content">
-          <div className="mobile-card-header">
-            <h4>{selected.name} ({selected.symbol})</h4>
-            {onClose && (
-              <button className="details-close-btn" onClick={onClose} title="Fechar">
-                ✕
-              </button>
-            )}
-          </div>
-          <div className="mobile-card-tags">
-            <span><strong>Nº:</strong> {selected.atomicNumber}</span>
-            <span><strong>Massa:</strong> {selected.atomicMass}</span>
-            <span><strong>Grupo:</strong> {selected.group}</span>
-            <span><strong>Período:</strong> {selected.period}</span>
-            <span><strong>Cat:</strong> {selected.category || "N/A"}</span>
-            <span><strong>Estado:</strong> {selected.state || "N/A"}</span>
-          </div>
+        <div className="mobile-card-tags">
+          <span><strong>Nº:</strong> {selected.atomicNumber}</span>
+          <span><strong>Massa:</strong> {selected.atomicMass}</span>
+          <span><strong>Grupo:</strong> {selected.group}</span>
+          <span><strong>Período:</strong> {selected.period}</span>
+          <span><strong>Cat:</strong> {selected.category || "N/A"}</span>
+          <span><strong>Estado:</strong> {selected.state || "N/A"}</span>
+          <span>
+            <strong>Eletroneg:</strong>{" "}
+            {selected.electronegativity !== null ? selected.electronegativity : "N/A"}
+          </span>
         </div>
       </div>
+    </div>
+  );
+}
+
+function GetSelected({ selected, color, fntColor, onClose }: GetSelectedProps) {
+  return (
+    <>
+      <GetSelectedDesktop selected={selected} color={color} fntColor={fntColor} onClose={onClose} />
+      <GetSelectedMobile selected={selected} color={color} fntColor={fntColor} onClose={onClose} />
     </>
   );
 }

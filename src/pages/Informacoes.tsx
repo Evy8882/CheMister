@@ -11,10 +11,7 @@ import {
   faVial,
   faDroplet,
   faArrowRight,
-  faBookOpen,
-  faLightbulb,
-  faGraduationCap,
-  faAtom
+  faBookOpen
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Home.css";
 

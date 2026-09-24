@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import data from "../data/elements.json";
 import { useState } from "react";
-import GetSelected from "../components/GetSelected";
+import { GetSelectedDesktop, GetSelectedMobile } from "../components/GetSelected";
 import Footer from "../components/Footer";
 import "../styles/App.css";
 import "../styles/PeriodicTable.css";
@@ -19,31 +19,31 @@ type Element = {
 };
 
 const colors = [
-  "#FF5733",
-  "#33FF57",
-  "#3357FF",
-  "#9013FE",
-  "#FF33A1",
-  "#33FFF5",
-  "#F5FF33",
-  "#FF8333",
-  "#8333FF",
-  "#33FF83",
-  "#FF3383",
-  "#3383FF",
-  "#F5A623",
-  "#50E3C2",
-  "#B8E986",
-  "#F8E71C",
-  "#D0021B",
-  "#F5A623",
-  "#4A90E2",
+  "#C84021",
+  "#1B933C",
+  "#2242D8",
+  "#740ECB",
+  "#D61C7F",
+  "#109E97",
+  "#A68500",
+  "#CC5810",
+  "#621ACC",
+  "#18A952",
+  "#CC185C",
+  "#1B63CC",
+  "#C47D0E",
+  "#1C9D82",
+  "#6B9E32",
+  "#A89800",
+  "#A60013",
+  "#C47D0E",
+  "#2C6CBD",
 ];
 
 const getColor = (element: Element, mode: string): string => {
   if (mode === "groups") {
     if (element.atomicNumber === 1) {
-      return "#BBBBBB";
+      return "#555555";
     }
     if (element.group > 2 && element.group < 13) {
       return colors[3];
@@ -59,7 +59,7 @@ const getColor = (element: Element, mode: string): string => {
     } else if (element.state === "gasoso") {
       return colors[2];
     }
-    return "#CCCCCC";
+    return "#555555";
   } else if (mode === "electronegativity") {
     if (element.electronegativity === null) {
       return "#333";
@@ -73,15 +73,15 @@ const getColor = (element: Element, mode: string): string => {
       case "não metal":
         return colors[0];
       case "metal alcalino":
-        return "#559a66";
+        return "#3D784A";
       case "metal alcalino-terroso":
-        return "#FF8a55";
+        return "#D65E2A";
       case "semi-metal":
-        return "#FFD522";
+        return "#B88B00";
       case "metal de transição":
-        return "#FF8C00";
+        return "#C45A00";
       case "metal representativo":
-        return "#FF4500";
+        return "#CC3300";
       case "halogênio":
         return colors[1];
       case "gás nobre":
@@ -267,53 +267,57 @@ function PeriodicTable() {
               </div>
 
               <div className="zoom-controls">
-                <span className="control-label">Zoom:</span>
-                <button
-                  className="zoom-btn"
-                  onClick={() => setZoom((prev) => Math.max(0.7, prev - 0.1))}
-                  disabled={zoom <= 0.7}
-                  title="Diminuir zoom"
-                >
-                  −
-                </button>
-                <span className="zoom-value">{Math.round(zoom * 100)}%</span>
-                <button
-                  className="zoom-btn"
-                  onClick={() => setZoom((prev) => Math.min(1.3, prev + 0.1))}
-                  disabled={zoom >= 1.3}
-                  title="Aumentar zoom"
-                >
-                  +
-                </button>
-                {zoom !== 1 && (
-                  <button className="zoom-reset-btn" onClick={() => setZoom(1)}>
-                    Reset
+                <span className="control-label zoom-label">Zoom:</span>
+                <div className="zoom-btn-group">
+                  <button
+                    className="zoom-btn"
+                    onClick={() => setZoom((prev) => Math.max(0.7, Math.round((prev - 0.1) * 10) / 10))}
+                    disabled={zoom <= 0.7}
+                    title="Diminuir zoom"
+                  >
+                    −
                   </button>
-                )}
+                  <span className="zoom-value">{Math.round(zoom * 100)}%</span>
+                  <button
+                    className="zoom-btn"
+                    onClick={() => setZoom((prev) => Math.min(1.3, Math.round((prev + 0.1) * 10) / 10))}
+                    disabled={zoom >= 1.3}
+                    title="Aumentar zoom"
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  className={`zoom-reset-btn ${zoom !== 1 ? "is-visible" : "is-hidden"}`}
+                  onClick={() => setZoom(1)}
+                  title="Redefinir zoom para 100%"
+                >
+                  Reset
+                </button>
               </div>
             </div>
 
             {/* Color Legend Bar */}
             {mode === "category" && (
               <div className="legend-bar">
-                <span className="legend-item"><span className="color-dot" style={{ background: "#FF5733" }}></span> Não Metal</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#559a66" }}></span> Metal Alcalino</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#FF8a55" }}></span> Alcalino-terroso</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#FFD522" }}></span> Semi-metal</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#FF8C00" }}></span> Metal de Transição</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#FF4500" }}></span> Metal Representativo</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#33FF57" }}></span> Halogênio</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#3357FF" }}></span> Gás Nobre</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#9013FE" }}></span> Lantanídeo</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#FF33A1" }}></span> Actinídeo</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#C84021" }}></span> Não Metal</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#3D784A" }}></span> Metal Alcalino</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#D65E2A" }}></span> Alcalino-terroso</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#B88B00" }}></span> Semi-metal</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#C45A00" }}></span> Metal de Transição</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#CC3300" }}></span> Metal Representativo</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#1B933C" }}></span> Halogênio</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#2242D8" }}></span> Gás Nobre</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#740ECB" }}></span> Lantanídeo</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#D61C7F" }}></span> Actinídeo</span>
               </div>
             )}
 
             {mode === "state" && (
               <div className="legend-bar">
-                <span className="legend-item"><span className="color-dot" style={{ background: "#FF5733" }}></span> Sólido</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#33FF57" }}></span> Líquido</span>
-                <span className="legend-item"><span className="color-dot" style={{ background: "#3357FF" }}></span> Gasoso</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#C84021" }}></span> Sólido</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#1B933C" }}></span> Líquido</span>
+                <span className="legend-item"><span className="color-dot" style={{ background: "#2242D8" }}></span> Gasoso</span>
               </div>
             )}
 
@@ -387,7 +391,7 @@ function PeriodicTable() {
                 style={{ gridColumn: 1, gridRow: 8, opacity: 0, cursor: "default", minHeight: "30px" }}
               ></div>
 
-              <GetSelected
+              <GetSelectedDesktop
                 selected={selected}
                 color={selected == null ? "" : getColor(selected, mode)}
                 fntColor={mode === "electronegativity" || mode !== "none" ? "white" : "#e4e4e7"}
@@ -395,6 +399,14 @@ function PeriodicTable() {
               />
             </div>
           </div>
+
+          {/* Floating Mobile Info Card - Rendered outside scroll & transform wrapper for true viewport fixed overlay */}
+          <GetSelectedMobile
+            selected={selected}
+            color={selected == null ? "" : getColor(selected, mode)}
+            fntColor={mode === "electronegativity" || mode !== "none" ? "white" : "#e4e4e7"}
+            onClose={() => setSelected(null)}
+          />
         </div>
       </main>
 
