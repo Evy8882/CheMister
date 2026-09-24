@@ -124,41 +124,6 @@ function Informacoes() {
         </div>
       </section>
 
-      {/* Destaques de Ajuda */}
-      <section className="stats-bar-section">
-        <div className="stats-container">
-          <div className="stat-card">
-            <div className="stat-icon-wrapper">
-              <FontAwesomeIcon icon={faLightbulb} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">Linguagem Fácil</span>
-              <span className="stat-label">Sem 'quimiquês' complicado</span>
-            </div>
-          </div>
-
-          <div className="stat-card">
-            <div className="stat-icon-wrapper">
-              <FontAwesomeIcon icon={faAtom} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">Exemplos Práticos</span>
-              <span className="stat-label">Situações do cotidiano</span>
-            </div>
-          </div>
-
-          <div className="stat-card">
-            <div className="stat-icon-wrapper">
-              <FontAwesomeIcon icon={faGraduationCap} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">Apoio aos Estudos</span>
-              <span className="stat-label">Ideal para revisões rápidas</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Lista de Seções Explicativas */}
       <section id="info-cards-section" className="tools-section">
         <div className="section-header">

@@ -12,8 +12,6 @@ import {
   faVial,
   faFlask,
   faArrowRight,
-  faBolt,
-  faGraduationCap,
   faCircleInfo,
   faDroplet
 } from "@fortawesome/free-solid-svg-icons";
@@ -97,7 +95,7 @@ function Home() {
 
         <div className="hero-container">
           <h1 className="hero-title">
-            Reinventando o aprendizado de <span className="gradient-text">Química</span>
+            Super APP de <span className="gradient-text">Química</span>
           </h1>
 
           <p className="hero-description">
@@ -118,41 +116,6 @@ function Home() {
         <div className="hero-logo-wrapper">
           <div className="logo-halo"></div>
           <img src={logo} alt="CheMister Mascot Logo" className="hero-logo" />
-        </div>
-      </section>
-
-      {/* Stats Highlights Bar */}
-      <section className="stats-bar-section">
-        <div className="stats-container">
-          <div className="stat-card">
-            <div className="stat-icon-wrapper">
-              <FontAwesomeIcon icon={faFlask} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">{toolsData.length}</span>
-              <span className="stat-label">Ferramentas Práticas</span>
-            </div>
-          </div>
-
-          <div className="stat-card">
-            <div className="stat-icon-wrapper">
-              <FontAwesomeIcon icon={faBolt} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">100%</span>
-              <span className="stat-label">Gratuito & Rápido</span>
-            </div>
-          </div>
-
-          <div className="stat-card">
-            <div className="stat-icon-wrapper">
-              <FontAwesomeIcon icon={faGraduationCap} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">Etec</span>
-              <span className="stat-label">Apoio Peruíbe</span>
-            </div>
-          </div>
         </div>
       </section>
 

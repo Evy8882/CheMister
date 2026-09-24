@@ -5,6 +5,8 @@ import MolarMassCalc from './pages/MolarMassCalc'
 import EquationBalancer from './pages/EquationBalancer'
 import PhSimulator from './pages/PhSimulator'
 import CalculadorSolubilidade from './pages/CalculadoraSolubilidade'
+import TabelaSolubilidade from './pages/TabelaSolubilidade'
+import Informacoes from './pages/Informacoes'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 

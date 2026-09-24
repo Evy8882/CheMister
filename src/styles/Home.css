@@ -74,6 +74,7 @@
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.02em;
+  max-width: 500px;
   color: #ffffff;
 }
 
